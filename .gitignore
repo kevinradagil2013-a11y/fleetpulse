@@ -1,0 +1,15 @@
+﻿node_modules/
+dist/
+build/
+.env
+.env.*
+!.env.example
+coverage/
+*.log
+.DS_Store
+.vscode/
+.idea/
+
+# Runtime data
+infrastructure/mqtt/mosquitto/data/*
+infrastructure/mqtt/mosquitto/log/*

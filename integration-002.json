@@ -1,0 +1,12 @@
+{
+  "at": "Vehicle",
+  "et": "Generated",
+  "aid": "integration-test-002",
+  "data": {
+    "type": "PickUp",
+    "powerSource": "Diesel",
+    "hp": 150,
+    "year": 2010,
+    "topSpeed": 140
+  }
+}

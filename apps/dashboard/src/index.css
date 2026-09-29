@@ -1,0 +1,4223 @@
+﻿:root {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color: #eef8ff;
+  background: #02070d;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: hidden;
+  background: #02070d;
+}
+
+button {
+  font: inherit;
+}
+
+/* =========================================================
+   LANDING
+   ========================================================= */
+
+.landing-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(
+      circle at 72% 55%,
+      rgba(0, 183, 255, 0.12),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 38% 40%,
+      rgba(43, 104, 255, 0.08),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #01050a 0%,
+      #03111a 48%,
+      #02070d 100%
+    );
+}
+
+.landing-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -5;
+  opacity: 0.25;
+  background-image:
+    linear-gradient(
+      rgba(89, 205, 255, 0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(89, 205, 255, 0.045) 1px,
+      transparent 1px
+    );
+  background-size: 55px 55px;
+  mask-image: linear-gradient(
+    to bottom,
+    black,
+    transparent 90%
+  );
+}
+
+.ambient-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: -3;
+}
+
+.ambient-glow-one {
+  top: 5%;
+  right: 8%;
+  background: rgba(0, 183, 255, 0.08);
+}
+
+.ambient-glow-two {
+  bottom: -20%;
+  left: 20%;
+  background: rgba(0, 93, 255, 0.07);
+}
+
+/* =========================================================
+   TOP SYSTEM
+   ========================================================= */
+
+.top-system {
+  position: absolute;
+  top: 30px;
+  left: 46px;
+  right: 46px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: rgba(220, 244, 255, 0.55);
+}
+
+.system-brand,
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.system-mark {
+  display: grid;
+  width: 27px;
+  height: 27px;
+  place-items: center;
+  border: 1px solid rgba(65, 214, 255, 0.55);
+  color: #69e7ff;
+  font-size: 11px;
+  font-weight: 800;
+  box-shadow:
+    0 0 18px rgba(0, 200, 255, 0.15);
+}
+
+.system-status-dot,
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ee8ff;
+  box-shadow:
+    0 0 8px #4ee8ff,
+    0 0 18px rgba(78, 232, 255, 0.8);
+}
+
+/* =========================================================
+   HERO COPY
+   ========================================================= */
+
+.landing-copy {
+  position: absolute;
+  z-index: 15;
+  top: 18%;
+  left: 7vw;
+  width: min(470px, 40vw);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid rgba(75, 221, 255, 0.24);
+  background: rgba(0, 119, 160, 0.07);
+  color: #79e8ff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.hero-kicker {
+  margin-top: 25px;
+  color: rgba(168, 218, 235, 0.42);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+}
+
+.landing-copy h1 {
+  margin: 13px 0 0;
+  font-size: clamp(58px, 7vw, 105px);
+  line-height: 0.88;
+  letter-spacing: -0.07em;
+  font-weight: 900;
+  color: #effaff;
+  text-shadow:
+    0 0 35px rgba(99, 223, 255, 0.13);
+}
+
+.landing-copy h1 span {
+  display: block;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(86, 218, 255, 0.72);
+  background:
+    linear-gradient(
+      180deg,
+      #9ff3ff,
+      #279ed4
+    );
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.landing-subtitle {
+  margin: 25px 0 0;
+  color: #b8d6e3;
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+.landing-subtitle strong {
+  color: #65ddff;
+  font-weight: 600;
+}
+
+.landing-description {
+  max-width: 390px;
+  margin: 15px 0 0;
+  color: rgba(195, 222, 233, 0.55);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.continue-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 220px;
+  height: 52px;
+  margin-top: 28px;
+  padding: 0 17px 0 21px;
+  border: 1px solid rgba(75, 220, 255, 0.5);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(16, 138, 180, 0.2),
+      rgba(12, 45, 63, 0.5)
+    );
+  color: #dff9ff;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.continue-button strong {
+  color: #5be4ff;
+  font-size: 21px;
+  transition: transform 0.25s ease;
+}
+
+.continue-button:hover {
+  transform: translateY(-3px);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(16, 160, 205, 0.28),
+      rgba(15, 65, 87, 0.6)
+    );
+  box-shadow:
+    0 12px 35px rgba(0, 190, 255, 0.15),
+    inset 0 0 20px rgba(60, 216, 255, 0.06);
+}
+
+.continue-button:hover strong {
+  transform: translateX(5px);
+}
+
+.architecture-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 23px;
+}
+
+.architecture-tags span {
+  padding: 6px 9px;
+  border: 1px solid rgba(142, 199, 217, 0.11);
+  color: rgba(176, 216, 230, 0.4);
+  font-size: 7px;
+  letter-spacing: 0.16em;
+}
+
+/* =========================================================
+   VEHICLE SCENE
+   ========================================================= */
+
+.vehicle-scene {
+  position: absolute;
+  right: -2%;
+  bottom: 0;
+  width: 72%;
+  height: 82%;
+  perspective: 1100px;
+}
+
+.scene-horizon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 26%;
+  height: 1px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(55, 204, 255, 0.28),
+      transparent
+    );
+  box-shadow:
+    0 0 30px rgba(0, 184, 255, 0.22);
+}
+
+.scene-grid-floor {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: -5%;
+  height: 43%;
+  transform:
+    perspective(500px)
+    rotateX(62deg);
+  transform-origin: center bottom;
+  opacity: 0.32;
+  background-image:
+    linear-gradient(
+      rgba(56, 200, 255, 0.1) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(56, 200, 255, 0.1) 1px,
+      transparent 1px
+    );
+  background-size: 70px 70px;
+  mask-image:
+    linear-gradient(
+      to bottom,
+      transparent,
+      black
+    );
+}
+
+/* =========================================================
+   PORTAL
+   ========================================================= */
+
+.portal {
+  position: absolute;
+  z-index: 2;
+  left: 34%;
+  top: 6%;
+  width: 260px;
+  height: 260px;
+  transform: rotateX(8deg);
+}
+
+.portal-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(70, 222, 255, 0.42);
+  border-radius: 50%;
+  box-shadow:
+    0 0 25px rgba(0, 185, 255, 0.22),
+    inset 0 0 25px rgba(0, 185, 255, 0.08);
+}
+
+.portal-ring-one {
+  animation:
+    portal-ring-spin 12s linear infinite;
+}
+
+.portal-ring-two {
+  inset: 19px;
+  border-style: dashed;
+  border-color: rgba(102, 165, 255, 0.28);
+  animation:
+    portal-ring-spin-reverse 8s linear infinite;
+}
+
+.portal-ring-three {
+  inset: 42px;
+  border-color: rgba(71, 236, 255, 0.25);
+  animation:
+    portal-ring-pulse 3s ease-in-out infinite;
+}
+
+.portal-core {
+  position: absolute;
+  inset: 67px;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(122, 240, 255, 0.5),
+      rgba(20, 116, 255, 0.13) 42%,
+      transparent 70%
+    );
+  filter: blur(3px);
+}
+
+.portal-particle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #73edff;
+  box-shadow:
+    0 0 10px #3ee4ff,
+    0 0 24px rgba(43, 189, 255, 0.8);
+}
+
+.particle-one {
+  left: 15%;
+  top: 32%;
+  animation: particle-float 3s infinite ease-in-out;
+}
+
+.particle-two {
+  left: 76%;
+  top: 20%;
+  animation: particle-float 4s 0.5s infinite ease-in-out;
+}
+
+.particle-three {
+  left: 84%;
+  top: 67%;
+  animation: particle-float 3.5s 1s infinite ease-in-out;
+}
+
+.particle-four {
+  left: 25%;
+  top: 80%;
+  animation: particle-float 4.5s 1.4s infinite ease-in-out;
+}
+
+.particle-five {
+  left: 48%;
+  top: 8%;
+  animation: particle-float 3.8s 0.8s infinite ease-in-out;
+}
+
+.particle-six {
+  left: 8%;
+  top: 62%;
+  animation: particle-float 4.2s 1.8s infinite ease-in-out;
+}
+
+/* =========================================================
+   NEBULA CHARACTER
+   ========================================================= */
+
+.nebula-passenger {
+  position: absolute;
+  z-index: 9;
+  left: 43%;
+  top: 2%;
+  width: 130px;
+  height: 235px;
+  animation:
+    character-arrival 3s 0.4s both,
+    character-float 4s 3.4s ease-in-out infinite;
+}
+
+.nebula-materialize {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  opacity: 0.7;
+}
+
+.nebula-materialize span {
+  width: 2px;
+  height: 130px;
+  margin-top: 30px;
+  background:
+    linear-gradient(
+      transparent,
+      #5beaff,
+      transparent
+    );
+  animation: materialize-line 1.8s ease-in-out infinite;
+}
+
+.nebula-energy-ring {
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  bottom: 12px;
+  height: 34px;
+  border: 1px solid rgba(71, 229, 255, 0.45);
+  border-radius: 50%;
+  box-shadow:
+    0 0 18px rgba(0, 204, 255, 0.25);
+}
+
+.nebula-character {
+  position: absolute;
+  inset: 0;
+}
+
+.nebula-head {
+  position: absolute;
+  top: 8px;
+  left: 37px;
+  width: 56px;
+  height: 66px;
+  border: 1px solid rgba(102, 232, 255, 0.5);
+  border-radius: 46% 46% 42% 42%;
+  background:
+    linear-gradient(
+      145deg,
+      #b5ecf6,
+      #557a8c 55%,
+      #1d3441
+    );
+  box-shadow:
+    0 0 20px rgba(56, 211, 255, 0.18);
+}
+
+.nebula-hair {
+  position: absolute;
+  top: -8px;
+  left: 5px;
+  width: 46px;
+  height: 25px;
+  border-radius: 50% 50% 30% 20%;
+  background:
+    linear-gradient(
+      145deg,
+      #102d42,
+      #06121c
+    );
+}
+
+.nebula-visor {
+  position: absolute;
+  top: 25px;
+  left: 7px;
+  right: 7px;
+  height: 19px;
+  border-radius: 14px;
+  background:
+    linear-gradient(
+      90deg,
+      #071a2a,
+      #45e8ff 45%,
+      #071a2a
+    );
+  box-shadow:
+    0 0 10px rgba(47, 227, 255, 0.5);
+}
+
+.nebula-visor span {
+  position: absolute;
+  top: 7px;
+  width: 6px;
+  height: 3px;
+  border-radius: 50%;
+  background: #c7fbff;
+}
+
+.nebula-visor span:first-child {
+  left: 14px;
+}
+
+.nebula-visor span:last-child {
+  right: 14px;
+}
+
+.nebula-face-light {
+  position: absolute;
+  left: 17px;
+  right: 17px;
+  bottom: 7px;
+  height: 2px;
+  background: rgba(119, 233, 255, 0.55);
+}
+
+.nebula-neck {
+  position: absolute;
+  top: 71px;
+  left: 56px;
+  width: 18px;
+  height: 15px;
+  background: #284656;
+}
+
+.nebula-torso {
+  position: absolute;
+  top: 80px;
+  left: 28px;
+  width: 74px;
+  height: 92px;
+  border: 1px solid rgba(91, 226, 255, 0.42);
+  clip-path: polygon(
+    18% 0,
+    82% 0,
+    100% 25%,
+    86% 100%,
+    14% 100%,
+    0 25%
+  );
+  background:
+    linear-gradient(
+      150deg,
+      #315c6d,
+      #102532 55%,
+      #071219
+    );
+}
+
+.nebula-core {
+  position: absolute;
+  left: 24px;
+  top: 17px;
+  display: grid;
+  width: 27px;
+  height: 27px;
+  place-items: center;
+  border: 1px solid #6aeaff;
+  border-radius: 50%;
+  color: #b8f8ff;
+  font-size: 10px;
+  font-weight: 900;
+  box-shadow:
+    0 0 16px rgba(62, 222, 255, 0.6);
+  animation: core-pulse 2s infinite;
+}
+
+.nebula-chest-line {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 56px;
+  height: 1px;
+  background: #4bdcff;
+  box-shadow: 0 0 8px #4bdcff;
+}
+
+.nebula-belt {
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  bottom: 12px;
+  height: 8px;
+  border: 1px solid rgba(91, 226, 255, 0.45);
+}
+
+.nebula-arm {
+  position: absolute;
+  top: 91px;
+  width: 20px;
+  height: 72px;
+  border: 1px solid rgba(78, 203, 230, 0.38);
+  border-radius: 13px;
+  background: #173340;
+}
+
+.nebula-arm-left {
+  left: 12px;
+  transform: rotate(13deg);
+}
+
+.nebula-arm-right {
+  right: 12px;
+  transform: rotate(-13deg);
+}
+
+.nebula-glove {
+  position: absolute;
+  bottom: -8px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #315d6e;
+}
+
+.nebula-leg {
+  position: absolute;
+  top: 163px;
+  width: 24px;
+  height: 62px;
+  border: 1px solid rgba(75, 210, 235, 0.35);
+  background: #112833;
+}
+
+.nebula-leg-left {
+  left: 39px;
+  transform: rotate(3deg);
+}
+
+.nebula-leg-right {
+  right: 39px;
+  transform: rotate(-3deg);
+}
+
+.nebula-boot {
+  position: absolute;
+  bottom: -8px;
+  left: -4px;
+  width: 31px;
+  height: 14px;
+  border-radius: 4px;
+  background: #09161e;
+  border: 1px solid #4bdcff;
+}
+
+.nebula-label {
+  position: absolute;
+  left: 105px;
+  top: 91px;
+  width: 130px;
+  padding-left: 10px;
+  border-left: 1px solid rgba(75, 220, 255, 0.45);
+}
+
+.nebula-label span {
+  display: block;
+  color: #63e5ff;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+}
+
+.nebula-label strong {
+  display: block;
+  margin-top: 4px;
+  color: rgba(204, 239, 247, 0.45);
+  font-size: 6px;
+  letter-spacing: 0.16em;
+}
+
+/* =========================================================
+   FUTURISTIC BUS
+   ========================================================= */
+
+.futuristic-bus {
+  position: absolute;
+  z-index: 8;
+  left: 9%;
+  bottom: 13%;
+  width: 78%;
+  height: 280px;
+  transform:
+    perspective(1000px)
+    rotateY(-4deg)
+    rotateX(1deg);
+  transform-origin: center center;
+  animation:
+    bus-arrival 2.4s cubic-bezier(.16,.82,.22,1) both,
+    bus-hover 6s 2.4s ease-in-out infinite;
+  filter:
+    drop-shadow(0 30px 28px rgba(0, 0, 0, 0.7));
+}
+
+.bus-aura {
+  position: absolute;
+  z-index: 4;
+  left: 17%;
+  right: 7%;
+  bottom: 16%;
+  height: 250px;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(0, 192, 255, 0.16),
+      transparent 64%
+    );
+  filter: blur(25px);
+}
+
+.bus-shadow {
+  position: absolute;
+  z-index: 3;
+  left: 16%;
+  right: 5%;
+  bottom: 10%;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.75);
+  filter: blur(14px);
+}
+
+.bus-roof {
+  position: absolute;
+  left: 13%;
+  right: 7%;
+  top: 2%;
+  height: 34px;
+  border: 1px solid rgba(119, 215, 235, 0.3);
+  border-bottom: 0;
+  border-radius: 40px 55px 0 0;
+  background:
+    linear-gradient(
+      180deg,
+      #42616e,
+      #172932
+    );
+  box-shadow:
+    inset 0 5px 15px rgba(172, 242, 255, 0.12);
+}
+
+.roof-light {
+  position: absolute;
+  left: 17%;
+  right: 12%;
+  top: 8px;
+  height: 3px;
+  border-radius: 5px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #69edff 20%,
+      #d2fbff 50%,
+      #69edff 80%,
+      transparent
+    );
+  box-shadow:
+    0 0 12px rgba(80, 226, 255, 0.8);
+}
+
+.roof-panel {
+  position: absolute;
+  right: 15%;
+  top: -4px;
+  width: 70px;
+  height: 7px;
+  border: 1px solid rgba(86, 220, 255, 0.4);
+  background: #07151e;
+}
+
+.bus-top-fin {
+  position: absolute;
+  right: 18%;
+  top: -20px;
+  width: 48px;
+  height: 23px;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  background:
+    linear-gradient(
+      90deg,
+      #173847,
+      #5e9bac
+    );
+  border-top: 1px solid #6ceaff;
+}
+
+.bus-front {
+  position: absolute;
+  left: 0;
+  top: 19%;
+  width: 34%;
+  height: 65%;
+  overflow: hidden;
+  border-radius: 50px 8px 16px 28px;
+  border: 1px solid rgba(137, 218, 234, 0.5);
+  background:
+    linear-gradient(
+      145deg,
+      #6c8e99 0%,
+      #29434e 28%,
+      #0d1b22 72%,
+      #091218 100%
+    );
+  box-shadow:
+    inset 14px 0 25px rgba(167, 238, 255, 0.12),
+    inset -20px 0 30px rgba(0, 0, 0, 0.35);
+}
+
+.bus-windshield {
+  position: absolute;
+  left: 9%;
+  right: 9%;
+  top: 7%;
+  height: 48%;
+  overflow: hidden;
+  border: 1px solid rgba(106, 229, 255, 0.48);
+  border-radius: 36px 7px 7px 7px;
+  background:
+    linear-gradient(
+      135deg,
+      #163949,
+      #06131c 48%,
+      #164b5c
+    );
+  box-shadow:
+    inset 0 0 25px rgba(42, 206, 255, 0.13);
+}
+
+.windshield-reflection {
+  position: absolute;
+  width: 130%;
+  height: 18px;
+  background: rgba(177, 248, 255, 0.11);
+  transform: rotate(-20deg);
+}
+
+.reflection-one {
+  top: 23%;
+  left: -10%;
+}
+
+.reflection-two {
+  top: 63%;
+  left: 15%;
+}
+
+.windshield-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 48%;
+  width: 1px;
+  background: rgba(120, 226, 245, 0.3);
+}
+
+.driver-zone {
+  position: absolute;
+  right: 13%;
+  bottom: 14%;
+  display: flex;
+  gap: 6px;
+}
+
+.driver-zone span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(92, 228, 255, 0.35);
+}
+
+.bus-front-panel {
+  position: absolute;
+  left: 9%;
+  right: 9%;
+  bottom: 5%;
+  height: 35%;
+  border-radius: 8px;
+  background:
+    linear-gradient(
+      180deg,
+      #243f4a,
+      #0a161d
+    );
+}
+
+.bus-logo {
+  position: absolute;
+  left: 50%;
+  top: 12%;
+  display: grid;
+  width: 35px;
+  height: 35px;
+  place-items: center;
+  transform: translateX(-50%);
+  border: 1px solid rgba(85, 228, 255, 0.6);
+  border-radius: 50%;
+  color: #a8f4ff;
+  font-size: 13px;
+  font-weight: 900;
+  box-shadow:
+    0 0 15px rgba(48, 213, 255, 0.28);
+}
+
+.front-light {
+  position: absolute;
+  top: 46%;
+  width: 45px;
+  height: 11px;
+  border-radius: 20px;
+  background:
+    linear-gradient(
+      90deg,
+      #bafaff,
+      #38dfff
+    );
+  box-shadow:
+    0 0 10px #38dfff,
+    0 0 24px rgba(56, 223, 255, 0.7);
+}
+
+.front-light-left {
+  left: 6%;
+}
+
+.front-light-right {
+  right: 6%;
+}
+
+.front-grille {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  display: flex;
+  gap: 6px;
+  transform: translateX(-50%);
+}
+
+.front-grille span {
+  width: 2px;
+  height: 12px;
+  background: #4a7684;
+}
+
+/* SIDE */
+
+.bus-side {
+  position: absolute;
+  left: 25%;
+  right: 4%;
+  top: 19%;
+  height: 65%;
+  overflow: hidden;
+  border: 1px solid rgba(133, 213, 229, 0.43);
+  border-left: 0;
+  border-radius: 5px 28px 20px 3px;
+  background:
+    linear-gradient(
+      160deg,
+      #57727c,
+      #253e47 24%,
+      #102028 62%,
+      #081217
+    );
+  box-shadow:
+    inset 0 15px 30px rgba(196, 243, 255, 0.08),
+    inset 0 -25px 35px rgba(0, 0, 0, 0.4);
+}
+
+.side-window {
+  position: absolute;
+  top: 9%;
+  width: 16%;
+  height: 42%;
+  border: 1px solid rgba(89, 215, 239, 0.35);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(55, 125, 148, 0.45),
+      rgba(3, 17, 26, 0.9) 55%,
+      rgba(44, 112, 130, 0.42)
+    );
+  box-shadow:
+    inset 0 0 18px rgba(65, 217, 255, 0.08);
+}
+
+.window-one {
+  left: 3%;
+  border-radius: 6px 2px 2px 6px;
+}
+
+.window-two {
+  left: 22%;
+}
+
+.window-three {
+  left: 41%;
+}
+
+.window-four {
+  left: 60%;
+  width: 19%;
+  border-radius: 2px 20px 2px 2px;
+}
+
+.window-highlight {
+  position: absolute;
+  left: 5%;
+  right: 10%;
+  top: 10%;
+  height: 2px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(190, 247, 255, 0.42),
+      transparent
+    );
+}
+
+.bus-side-line {
+  position: absolute;
+  left: 2%;
+  right: 2%;
+  height: 2px;
+}
+
+.line-primary {
+  top: 58%;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #49dcff 15%,
+      #91f3ff 60%,
+      transparent
+    );
+  box-shadow:
+    0 0 10px rgba(65, 218, 255, 0.6);
+}
+
+.line-secondary {
+  top: 61%;
+  height: 1px;
+  background: rgba(84, 174, 198, 0.35);
+}
+
+.bus-door {
+  position: absolute;
+  right: 6%;
+  top: 13%;
+  width: 15%;
+  height: 52%;
+  border: 1px solid rgba(100, 216, 235, 0.3);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(2, 15, 22, 0.6),
+      rgba(62, 133, 150, 0.16),
+      rgba(2, 15, 22, 0.6)
+    );
+}
+
+.bus-door span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(107, 213, 233, 0.25);
+}
+
+.bus-door span:first-child {
+  left: 50%;
+}
+
+.bus-door span:last-child {
+  display: none;
+}
+
+.bus-panel-detail {
+  position: absolute;
+  right: 6%;
+  bottom: 14%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(194, 231, 240, 0.5);
+  letter-spacing: 0.16em;
+}
+
+.bus-panel-detail small {
+  color: #5de5ff;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.bus-panel-detail strong {
+  font-size: 7px;
+}
+
+.bus-side-led {
+  position: absolute;
+  left: 3%;
+  right: 4%;
+  bottom: 8%;
+  height: 2px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #3adfff 30%,
+      #a2f7ff 65%,
+      transparent
+    );
+  box-shadow:
+    0 0 9px #3adfff;
+}
+
+/* REAR */
+
+.bus-rear {
+  position: absolute;
+  right: 0;
+  top: 19%;
+  width: 10%;
+  height: 65%;
+  border: 1px solid rgba(104, 191, 208, 0.35);
+  border-radius: 5px 22px 18px 4px;
+  background:
+    linear-gradient(
+      120deg,
+      #28434c,
+      #09151b
+    );
+}
+
+.rear-window {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 10%;
+  height: 38%;
+  border: 1px solid rgba(83, 204, 232, 0.32);
+  background: #071a23;
+}
+
+.rear-light {
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  height: 5px;
+  background: #35ddff;
+  box-shadow:
+    0 0 12px #35ddff;
+}
+
+.rear-light-one {
+  top: 60%;
+}
+
+.rear-light-two {
+  top: 68%;
+}
+
+.rear-badge {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(131, 221, 239, 0.45);
+  font-size: 5px;
+  letter-spacing: 0.2em;
+}
+
+/* LOWER BODY */
+
+.bus-lower-body {
+  position: absolute;
+  left: 7%;
+  right: 4%;
+  bottom: 5%;
+  height: 25%;
+  border-radius: 8px;
+  background:
+    linear-gradient(
+      180deg,
+      #263f48,
+      #081217
+    );
+  border-top: 1px solid rgba(92, 214, 235, 0.35);
+}
+
+.lower-panel {
+  position: absolute;
+  left: 12%;
+  right: 8%;
+  top: 12%;
+  height: 2px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(116, 229, 246, 0.3),
+      transparent
+    );
+}
+
+.lower-light-strip {
+  position: absolute;
+  left: 17%;
+  right: 12%;
+  bottom: 13%;
+  height: 3px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #4de6ff 30%,
+      #b3f9ff 50%,
+      #4de6ff 70%,
+      transparent
+    );
+  box-shadow:
+    0 0 12px rgba(69, 224, 255, 0.7);
+}
+
+.wheel-arch {
+  position: absolute;
+  bottom: -8px;
+  width: 92px;
+  height: 62px;
+  border: 5px solid #0a1318;
+  border-bottom: 0;
+  border-radius: 55px 55px 0 0;
+}
+
+.wheel-arch-front {
+  left: 12%;
+}
+
+.wheel-arch-back {
+  right: 10%;
+}
+
+/* WHEELS */
+
+.bus-wheel {
+  position: absolute;
+  z-index: 12;
+  bottom: 0;
+  width: 88px;
+  height: 88px;
+}
+
+.wheel-front {
+  left: 13%;
+}
+
+.wheel-back {
+  right: 12%;
+}
+
+.wheel-tire {
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle,
+      #111c22 0 34%,
+      #030609 35% 62%,
+      #101a20 63% 71%,
+      #020507 72%
+    );
+  border: 2px solid #1c3038;
+  box-shadow:
+    inset 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.wheel-glow {
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1px solid rgba(50, 221, 255, 0.28);
+  box-shadow:
+    0 0 12px rgba(41, 217, 255, 0.28);
+}
+
+.wheel-rim {
+  position: absolute;
+  inset: 21px;
+  border: 3px solid #597680;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle,
+      #172c35,
+      #071117
+    );
+  box-shadow:
+    0 0 8px rgba(95, 218, 239, 0.18);
+}
+
+.wheel-rim span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2px;
+  height: 23px;
+  background: #78a0aa;
+  transform-origin: center bottom;
+}
+
+.wheel-rim span:nth-child(1) {
+  transform: translate(-50%, -100%) rotate(0deg);
+}
+
+.wheel-rim span:nth-child(2) {
+  transform: translate(-50%, -100%) rotate(90deg);
+}
+
+.wheel-rim span:nth-child(3) {
+  transform: translate(-50%, -100%) rotate(45deg);
+}
+
+.wheel-rim span:nth-child(4) {
+  transform: translate(-50%, -100%) rotate(135deg);
+}
+
+.wheel-hub {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #132831;
+  border: 1px solid #65dff5;
+  color: #8ceeff;
+  font-size: 6px;
+  font-weight: 900;
+}
+
+.bus-underlight {
+  position: absolute;
+  left: 12%;
+  right: 8%;
+  bottom: -4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #46ddff;
+  filter: blur(4px);
+  opacity: 0.8;
+}
+
+/* =========================================================
+   HUD
+   ========================================================= */
+
+.data-hud {
+  position: absolute;
+  z-index: 15;
+  padding: 9px 12px;
+  border-left: 1px solid rgba(77, 224, 255, 0.55);
+  background: rgba(3, 18, 27, 0.5);
+  backdrop-filter: blur(8px);
+  animation: hud-fade 1.4s 2.2s both;
+}
+
+.data-hud span {
+  display: block;
+  color: rgba(173, 215, 227, 0.4);
+  font-size: 6px;
+  letter-spacing: 0.18em;
+}
+
+.data-hud strong {
+  display: block;
+  margin-top: 4px;
+  color: #66e5ff;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+
+.hud-one {
+  top: 38%;
+  right: 3%;
+}
+
+.hud-two {
+  top: 59%;
+  right: 1%;
+}
+
+.hud-three {
+  top: 74%;
+  left: 8%;
+}
+
+.speed-line {
+  position: absolute;
+  z-index: 2;
+  height: 1px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(85, 220, 255, 0.8),
+      transparent
+    );
+  opacity: 0;
+  animation: speed-line 1.7s 1.4s linear infinite;
+}
+
+.line-one {
+  left: 0;
+  bottom: 40%;
+  width: 180px;
+}
+
+.line-two {
+  left: 9%;
+  bottom: 47%;
+  width: 100px;
+  animation-delay: 1.7s;
+}
+
+.line-three {
+  left: 4%;
+  bottom: 31%;
+  width: 140px;
+  animation-delay: 2s;
+}
+
+.line-four {
+  left: 14%;
+  bottom: 53%;
+  width: 80px;
+  animation-delay: 2.4s;
+}
+
+.road-glow {
+  position: absolute;
+  z-index: 1;
+  left: 6%;
+  right: 3%;
+  bottom: 7%;
+  height: 8px;
+  border-radius: 50%;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(47, 212, 255, 0.65),
+      rgba(102, 235, 255, 0.9),
+      transparent
+    );
+  filter: blur(8px);
+  animation: road-pulse 3s ease-in-out infinite;
+}
+
+.scene-caption {
+  position: absolute;
+  z-index: 15;
+  right: 5%;
+  bottom: 4%;
+  text-align: right;
+}
+
+.scene-caption span {
+  display: block;
+  color: #65e5ff;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.3em;
+}
+
+.scene-caption strong {
+  display: block;
+  margin-top: 5px;
+  color: rgba(188, 226, 237, 0.35);
+  font-size: 6px;
+  letter-spacing: 0.2em;
+}
+
+/* =========================================================
+   CORNERS
+   ========================================================= */
+
+.corner-label {
+  position: absolute;
+  z-index: 30;
+  color: rgba(165, 210, 224, 0.28);
+  font-size: 8px;
+  letter-spacing: 0.22em;
+}
+
+.top-left {
+  top: 82px;
+  left: 46px;
+}
+
+.bottom-right {
+  right: 46px;
+  bottom: 28px;
+}
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+.dashboard-page {
+  min-height: 100vh;
+  padding: 42px 7vw;
+  color: #eaf8ff;
+  background:
+    radial-gradient(
+      circle at 85% 0%,
+      rgba(0, 176, 255, 0.08),
+      transparent 30%
+    ),
+    #02070d;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(150, 210, 230, 0.1);
+}
+
+.dashboard-brand {
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
+
+.dashboard-brand span {
+  color: #52ddff;
+}
+
+.dashboard-header p {
+  margin: 4px 0 0;
+  color: rgba(185, 218, 230, 0.38);
+  font-size: 8px;
+  letter-spacing: 0.22em;
+}
+
+.live-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #63e4ff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.live-status span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #51e6ff;
+  box-shadow: 0 0 12px #51e6ff;
+}
+
+.dashboard-intro {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin: 70px 0 40px;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: #54dfff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+}
+
+.dashboard-intro h1 {
+  max-width: 650px;
+  margin: 0;
+  font-size: clamp(42px, 5vw, 72px);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.dashboard-intro h1 span {
+  color: #54ddff;
+}
+
+.dashboard-intro > div > p:last-child {
+  color: rgba(192, 222, 232, 0.45);
+  font-size: 13px;
+}
+
+.back-button,
+.dashboard-error button {
+  align-self: center;
+  height: 44px;
+  padding: 0 17px;
+  border: 1px solid rgba(75, 220, 255, 0.35);
+  background: rgba(30, 125, 160, 0.08);
+  color: #75e6ff;
+  cursor: pointer;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.metric-card,
+.data-card {
+  border: 1px solid rgba(125, 202, 221, 0.12);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(28, 62, 73, 0.22),
+      rgba(4, 15, 21, 0.65)
+    );
+}
+
+.metric-card {
+  min-height: 150px;
+  padding: 24px;
+}
+
+.metric-card.featured {
+  border-color: rgba(65, 219, 255, 0.3);
+  box-shadow:
+    inset 0 0 35px rgba(40, 205, 255, 0.04);
+}
+
+.metric-card span {
+  display: block;
+  color: rgba(190, 224, 234, 0.4);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+}
+
+.metric-card strong {
+  display: block;
+  margin-top: 22px;
+  color: #eafaff;
+  font-size: 39px;
+  letter-spacing: -0.05em;
+}
+
+.metric-card small {
+  display: block;
+  margin-top: 5px;
+  color: rgba(181, 216, 228, 0.35);
+  font-size: 9px;
+}
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.data-card {
+  padding: 23px;
+}
+
+.card-heading {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 17px;
+}
+
+.card-heading h2 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.card-heading span {
+  color: #4edfff;
+  font-size: 8px;
+}
+
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-top: 1px solid rgba(130, 196, 211, 0.08);
+}
+
+.data-row span {
+  color: rgba(193, 222, 231, 0.55);
+  font-size: 10px;
+}
+
+.data-row strong {
+  color: #69e2ff;
+  font-size: 11px;
+}
+
+.dashboard-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 28px;
+  color: rgba(168, 207, 219, 0.3);
+  font-size: 7px;
+  letter-spacing: 0.17em;
+}
+
+.dashboard-loading,
+.dashboard-error {
+  min-height: 80vh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+}
+
+.dashboard-loading h1,
+.dashboard-error h1 {
+  font-size: 44px;
+}
+
+.dashboard-loading p,
+.dashboard-error p {
+  color: rgba(190, 220, 230, 0.5);
+}
+
+.loading-ring {
+  width: 50px;
+  height: 50px;
+  border: 2px solid rgba(72, 218, 255, 0.12);
+  border-top-color: #59e5ff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes portal-ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes portal-ring-spin-reverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes portal-ring-pulse {
+  50% {
+    transform: scale(1.08);
+    opacity: 0.45;
+  }
+}
+
+@keyframes particle-float {
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.4;
+  }
+
+  50% {
+    transform: translate(14px, -20px);
+    opacity: 1;
+  }
+}
+
+@keyframes character-arrival {
+  0% {
+    opacity: 0;
+    transform:
+      translateY(80px)
+      scale(0.65);
+    filter: blur(8px);
+  }
+
+  70% {
+    opacity: 1;
+    transform:
+      translateY(-5px)
+      scale(1.03);
+    filter: blur(0);
+  }
+
+  100% {
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+@keyframes character-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes materialize-line {
+  0%,
+  100% {
+    transform: scaleY(0.2);
+    opacity: 0.2;
+  }
+
+  50% {
+    transform: scaleY(1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes core-pulse {
+  50% {
+    transform: scale(1.12);
+    box-shadow:
+      0 0 28px rgba(62, 222, 255, 0.85);
+  }
+}
+
+@keyframes bus-arrival {
+  0% {
+    opacity: 0;
+    transform:
+      perspective(1000px)
+      translateX(180px)
+      translateY(25px)
+      scale(0.72)
+      rotateY(-10deg);
+    filter:
+      blur(8px)
+      brightness(1.8);
+  }
+
+  60% {
+    opacity: 1;
+    transform:
+      perspective(1000px)
+      translateX(-12px)
+      translateY(-2px)
+      scale(1.03)
+      rotateY(-4deg);
+    filter:
+      blur(0)
+      brightness(1.15);
+  }
+
+  100% {
+    transform:
+      perspective(1000px)
+      translateX(0)
+      translateY(0)
+      scale(1)
+      rotateY(-4deg);
+    filter:
+      blur(0)
+      brightness(1);
+  }
+}
+
+@keyframes bus-hover {
+  0%,
+  100% {
+    transform:
+      perspective(1000px)
+      translateY(0)
+      rotateY(-4deg);
+  }
+
+  50% {
+    transform:
+      perspective(1000px)
+      translateY(-5px)
+      rotateY(-4deg);
+  }
+}
+
+@keyframes speed-line {
+  0% {
+    opacity: 0;
+    transform: translateX(90px);
+  }
+
+  25% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-180px);
+  }
+}
+
+@keyframes road-pulse {
+  50% {
+    opacity: 0.5;
+    transform: scaleX(0.85);
+  }
+}
+
+@keyframes hud-fade {
+  from {
+    opacity: 0;
+    transform: translateX(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .landing-copy {
+    width: 45vw;
+  }
+
+  .vehicle-scene {
+    width: 76%;
+    right: -8%;
+  }
+
+  .futuristic-bus {
+    width: 86%;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+
+  .top-system {
+    left: 20px;
+    right: 20px;
+  }
+
+  .landing-copy {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    padding: 110px 25px 0;
+  }
+
+  .landing-copy h1 {
+    font-size: 60px;
+  }
+
+  .landing-description {
+    max-width: 330px;
+  }
+
+  .vehicle-scene {
+    position: relative;
+    right: auto;
+    width: 120%;
+    height: 430px;
+    margin-left: -5%;
+    margin-top: 30px;
+  }
+
+  .portal {
+    left: 38%;
+    width: 180px;
+    height: 180px;
+  }
+
+  .nebula-passenger {
+    left: 45%;
+    transform: scale(0.8);
+    transform-origin: top center;
+  }
+
+  .futuristic-bus {
+    left: 4%;
+    bottom: 12%;
+    width: 90%;
+    height: 210px;
+  }
+
+  .data-hud {
+    display: none;
+  }
+
+  .corner-label {
+    display: none;
+  }
+
+  .dashboard-page {
+    padding: 30px 20px;
+  }
+
+  .dashboard-intro {
+    display: block;
+    margin-top: 45px;
+  }
+
+  .back-button {
+    margin-top: 20px;
+  }
+
+  .data-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+
+  .system-brand span:last-child {
+    display: none;
+  }
+
+  .landing-copy {
+    padding-top: 100px;
+  }
+
+  .landing-copy h1 {
+    font-size: 51px;
+  }
+
+  .landing-subtitle {
+    font-size: 17px;
+  }
+
+  .architecture-tags span {
+    font-size: 6px;
+  }
+
+  .vehicle-scene {
+    width: 145%;
+    margin-left: -18%;
+  }
+
+  .futuristic-bus {
+    height: 170px;
+  }
+
+  .bus-wheel {
+    width: 58px;
+    height: 58px;
+  }
+
+  .wheel-rim {
+    inset: 14px;
+  }
+
+  .wheel-front {
+    left: 13%;
+  }
+
+  .wheel-back {
+    right: 11%;
+  }
+
+  .nebula-passenger {
+    transform: scale(0.62);
+    transform-origin: top center;
+  }
+
+  .dashboard-intro h1 {
+    font-size: 43px;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-footer {
+    display: block;
+    line-height: 2;
+  }
+}
+
+/* =========================================================
+   FLEETPULSE CINEMATIC COLOR PASS
+   BUS: RUBY CRYSTAL
+   NEBULA: ICE BLUE
+   ========================================================= */
+
+/* ---------- BUS: RUBY CRYSTAL ---------- */
+
+.futuristic-bus {
+  --ruby-dark: #240006;
+  --ruby-deep: #52000d;
+  --ruby: #9e1024;
+  --ruby-bright: #e92845;
+  --ruby-glass: rgba(255, 55, 82, 0.32);
+  --ruby-light: #ff4965;
+
+  filter:
+    drop-shadow(0 30px 35px rgba(0, 0, 0, 0.75))
+    drop-shadow(0 0 28px rgba(210, 12, 45, 0.18));
+
+  animation:
+    bus-cinematic-arrival 2.6s 2.15s cubic-bezier(.16,.82,.22,1) both,
+    bus-hover 6s 4.75s ease-in-out infinite;
+}
+
+/* cristal exterior */
+
+.bus-roof {
+  border-color: rgba(255, 89, 112, 0.48);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(171, 30, 52, 0.9),
+      rgba(55, 3, 12, 0.96)
+    );
+
+  box-shadow:
+    inset 0 5px 18px rgba(255, 142, 157, 0.22),
+    0 0 18px rgba(217, 17, 47, 0.15);
+}
+
+.roof-light {
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #ff667c 18%,
+      #fff1f3 50%,
+      #ff667c 82%,
+      transparent
+    );
+
+  box-shadow:
+    0 0 12px #ff3857,
+    0 0 28px rgba(255, 35, 70, 0.55);
+}
+
+/* frente rojo cristal */
+
+.bus-front {
+  border-color: rgba(255, 82, 107, 0.65);
+
+  background:
+    linear-gradient(
+      145deg,
+      #d63a53 0%,
+      #851025 24%,
+      #3b050f 60%,
+      #100207 100%
+    );
+
+  box-shadow:
+    inset 15px 0 30px rgba(255, 183, 193, 0.15),
+    inset -25px 0 35px rgba(0, 0, 0, 0.5),
+    0 0 22px rgba(208, 16, 46, 0.2);
+}
+
+/* brillo de cristal */
+
+.bus-front::after,
+.bus-side::after {
+  content: "";
+  position: absolute;
+  z-index: 20;
+  left: -20%;
+  top: -20%;
+  width: 28%;
+  height: 150%;
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 240, 243, 0.28),
+      transparent
+    );
+
+  transform: rotate(18deg);
+  animation:
+    ruby-reflection 5s 4.8s ease-in-out infinite;
+}
+
+/* parabrisas */
+
+.bus-windshield {
+  border-color: rgba(255, 86, 109, 0.45);
+
+  background:
+    linear-gradient(
+      135deg,
+      #210812,
+      #05090f 43%,
+      #391020 72%,
+      #10040a
+    );
+
+  box-shadow:
+    inset 0 0 28px rgba(255, 43, 77, 0.13),
+    0 0 12px rgba(255, 38, 69, 0.12);
+}
+
+.windshield-reflection {
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 196, 205, 0.17),
+      transparent
+    );
+}
+
+/* panel frontal */
+
+.bus-front-panel {
+  background:
+    linear-gradient(
+      180deg,
+      #641021,
+      #25050c
+    );
+}
+
+.bus-logo {
+  border-color: #ff4c67;
+  color: #fff0f3;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 69, 98, 0.24),
+      rgba(63, 0, 12, 0.5)
+    );
+
+  box-shadow:
+    0 0 12px rgba(255, 43, 75, 0.65),
+    inset 0 0 12px rgba(255, 117, 135, 0.12);
+}
+
+/* faros */
+
+.front-light {
+  background:
+    linear-gradient(
+      90deg,
+      #fff,
+      #ffb9c3 35%,
+      #ff3e5e 100%
+    );
+
+  box-shadow:
+    0 0 12px #ff4b69,
+    0 0 30px rgba(255, 35, 65, 0.75),
+    0 0 55px rgba(255, 25, 55, 0.3);
+}
+
+/* ---------- LATERAL ---------- */
+
+.bus-side {
+  border-color: rgba(255, 78, 103, 0.58);
+
+  background:
+    linear-gradient(
+      160deg,
+      #c62d49,
+      #7a0d21 22%,
+      #390711 53%,
+      #130207 100%
+    );
+
+  box-shadow:
+    inset 0 15px 35px rgba(255, 191, 201, 0.13),
+    inset 0 -28px 40px rgba(0, 0, 0, 0.48),
+    0 0 25px rgba(200, 12, 43, 0.14);
+}
+
+/* ventanas */
+
+.side-window {
+  border-color: rgba(255, 104, 126, 0.3);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(82, 8, 25, 0.45),
+      rgba(2, 6, 12, 0.96) 52%,
+      rgba(132, 20, 43, 0.32)
+    );
+
+  box-shadow:
+    inset 0 0 20px rgba(255, 42, 75, 0.08),
+    inset 0 1px 0 rgba(255, 202, 210, 0.12);
+}
+
+.window-highlight {
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 214, 220, 0.42),
+      transparent
+    );
+}
+
+/* línea energética */
+
+.line-primary {
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #ff244a 12%,
+      #ff8a9d 48%,
+      #ff244a 82%,
+      transparent
+    );
+
+  box-shadow:
+    0 0 8px #ff244a,
+    0 0 20px rgba(255, 30, 65, 0.8);
+}
+
+.line-secondary {
+  background: rgba(255, 116, 136, 0.3);
+}
+
+.bus-side-led {
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #ff2149 25%,
+      #ffb0bd 50%,
+      #ff2149 75%,
+      transparent
+    );
+
+  box-shadow:
+    0 0 10px #ff2149,
+    0 0 25px rgba(255, 30, 65, 0.65);
+}
+
+/* puerta */
+
+.bus-door {
+  border-color: rgba(255, 107, 128, 0.34);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(17, 2, 8, 0.72),
+      rgba(125, 16, 38, 0.18),
+      rgba(17, 2, 8, 0.72)
+    );
+}
+
+/* marca */
+
+.bus-panel-detail {
+  color: rgba(255, 208, 216, 0.52);
+}
+
+.bus-panel-detail small {
+  color: #ff526e;
+}
+
+/* ---------- PARTE TRASERA ---------- */
+
+.bus-rear {
+  border-color: rgba(255, 77, 103, 0.4);
+
+  background:
+    linear-gradient(
+      120deg,
+      #731027,
+      #16030a
+    );
+}
+
+.rear-window {
+  border-color: rgba(255, 84, 109, 0.3);
+  background: #10030a;
+}
+
+.rear-light {
+  background: #ff234b;
+
+  box-shadow:
+    0 0 12px #ff234b,
+    0 0 25px rgba(255, 30, 65, 0.7);
+}
+
+/* ---------- PARTE INFERIOR ---------- */
+
+.bus-lower-body {
+  background:
+    linear-gradient(
+      180deg,
+      #641022,
+      #120207
+    );
+
+  border-top-color:
+    rgba(255, 85, 108, 0.42);
+}
+
+.lower-panel {
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 177, 188, 0.3),
+      transparent
+    );
+}
+
+.lower-light-strip {
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #ff2148 28%,
+      #ffb7c2 50%,
+      #ff2148 72%,
+      transparent
+    );
+
+  box-shadow:
+    0 0 13px rgba(255, 31, 67, 0.9);
+}
+
+/* ---------- RUEDAS ---------- */
+
+.wheel-glow {
+  border-color: rgba(255, 44, 74, 0.45);
+
+  box-shadow:
+    0 0 14px rgba(255, 35, 67, 0.4),
+    0 0 28px rgba(255, 20, 55, 0.18);
+}
+
+.wheel-rim {
+  border-color: #8e3345;
+
+  box-shadow:
+    0 0 10px rgba(255, 70, 95, 0.24);
+}
+
+.wheel-rim span {
+  background: #b96676;
+}
+
+.wheel-hub {
+  background: #350711;
+  border-color: #ff4d68;
+  color: #ffb7c3;
+
+  box-shadow:
+    0 0 10px rgba(255, 45, 75, 0.65);
+}
+
+.bus-underlight {
+  background: #ff2149;
+
+  box-shadow:
+    0 0 10px #ff2149,
+    0 0 28px rgba(255, 24, 61, 0.8);
+}
+
+/* ---------- AURA ROJA ---------- */
+
+.bus-aura {
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(225, 15, 49, 0.22),
+      rgba(110, 0, 22, 0.08) 40%,
+      transparent 70%
+    );
+
+  filter: blur(30px);
+}
+
+.bus-shadow {
+  box-shadow:
+    0 0 35px rgba(196, 9, 40, 0.2);
+}
+
+.road-glow {
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 32, 70, 0.55),
+      rgba(255, 107, 128, 0.95),
+      transparent
+    );
+
+  filter: blur(9px);
+}
+
+/* =========================================================
+   NEBULA — ICE BLUE / CRYSTAL BLUE
+   ========================================================= */
+
+.nebula-passenger {
+  animation:
+    nebula-cinematic-arrival 1.9s 0.95s cubic-bezier(.16,.82,.22,1) both,
+    character-float 4s 2.85s ease-in-out infinite;
+}
+
+.nebula-head {
+  border-color: rgba(143, 242, 255, 0.78);
+
+  background:
+    linear-gradient(
+      145deg,
+      #e5fbff,
+      #7ddced 46%,
+      #236b87 100%
+    );
+
+  box-shadow:
+    0 0 18px rgba(69, 224, 255, 0.4),
+    inset 0 0 15px rgba(220, 253, 255, 0.2);
+}
+
+.nebula-hair {
+  background:
+    linear-gradient(
+      145deg,
+      #b4f5ff,
+      #247b9b 45%,
+      #063246
+    );
+}
+
+.nebula-visor {
+  background:
+    linear-gradient(
+      90deg,
+      #0b405b,
+      #9cf7ff 45%,
+      #0b405b
+    );
+
+  box-shadow:
+    0 0 12px #57eaff,
+    0 0 25px rgba(52, 218, 255, 0.55);
+}
+
+.nebula-visor span {
+  background: #eaffff;
+  box-shadow: 0 0 7px #ffffff;
+}
+
+.nebula-face-light {
+  background: #9cf6ff;
+  box-shadow: 0 0 8px #64eaff;
+}
+
+.nebula-neck {
+  background:
+    linear-gradient(
+      90deg,
+      #3b8ca4,
+      #9cecf5,
+      #245a70
+    );
+}
+
+.nebula-torso {
+  border-color: rgba(121, 236, 255, 0.75);
+
+  background:
+    linear-gradient(
+      150deg,
+      #9aeaf2,
+      #318ca7 32%,
+      #0c3a50 66%,
+      #05202e
+    );
+
+  box-shadow:
+    0 0 25px rgba(43, 209, 255, 0.25),
+    inset 0 0 20px rgba(217, 253, 255, 0.13);
+}
+
+.nebula-core {
+  border-color: #d2fcff;
+  color: #efffff;
+
+  background:
+    radial-gradient(
+      circle,
+      #8df4ff,
+      #168fb1 45%,
+      #052637
+    );
+
+  box-shadow:
+    0 0 13px #59eaff,
+    0 0 30px rgba(45, 221, 255, 0.8);
+}
+
+.nebula-chest-line {
+  background: #a7f7ff;
+
+  box-shadow:
+    0 0 9px #58eaff,
+    0 0 18px rgba(50, 215, 255, 0.7);
+}
+
+.nebula-belt {
+  border-color: rgba(151, 242, 255, 0.75);
+  background: rgba(27, 127, 155, 0.25);
+}
+
+.nebula-arm {
+  border-color: rgba(109, 228, 249, 0.7);
+
+  background:
+    linear-gradient(
+      90deg,
+      #23677d,
+      #75ddec,
+      #17465c
+    );
+
+  box-shadow:
+    0 0 14px rgba(42, 206, 255, 0.18);
+}
+
+.nebula-glove {
+  background:
+    linear-gradient(
+      145deg,
+      #b1f6ff,
+      #358aa4
+    );
+
+  box-shadow:
+    0 0 10px rgba(66, 222, 255, 0.5);
+}
+
+.nebula-leg {
+  border-color: rgba(100, 222, 246, 0.58);
+
+  background:
+    linear-gradient(
+      90deg,
+      #17485d,
+      #54b9ce,
+      #103246
+    );
+}
+
+.nebula-boot {
+  background: #082331;
+  border-color: #68eaff;
+
+  box-shadow:
+    0 0 12px rgba(61, 220, 255, 0.55);
+}
+
+.nebula-energy-ring {
+  border-color: rgba(127, 244, 255, 0.7);
+
+  box-shadow:
+    0 0 20px rgba(54, 223, 255, 0.5),
+    0 0 45px rgba(44, 192, 255, 0.2);
+}
+
+.nebula-label span {
+  color: #9af5ff;
+  text-shadow:
+    0 0 10px rgba(80, 225, 255, 0.8);
+}
+
+.nebula-materialize span {
+  background:
+    linear-gradient(
+      transparent,
+      #9ef7ff,
+      #3edcff,
+      transparent
+    );
+
+  box-shadow:
+    0 0 10px #4de4ff;
+}
+
+/* =========================================================
+   PORTAL — AZUL MÁS INTENSO PARA CONTRASTAR
+   ========================================================= */
+
+.portal-ring {
+  border-color: rgba(85, 228, 255, 0.62);
+
+  box-shadow:
+    0 0 28px rgba(0, 190, 255, 0.32),
+    inset 0 0 30px rgba(0, 190, 255, 0.12);
+}
+
+.portal-ring-two {
+  border-color: rgba(136, 188, 255, 0.42);
+}
+
+.portal-ring-three {
+  border-color: rgba(141, 247, 255, 0.4);
+}
+
+.portal-core {
+  background:
+    radial-gradient(
+      circle,
+      rgba(180, 252, 255, 0.7),
+      rgba(30, 166, 255, 0.2) 40%,
+      transparent 72%
+    );
+
+  box-shadow:
+    0 0 55px rgba(30, 211, 255, 0.28);
+}
+
+/* =========================================================
+   SECUENCIA CINEMATOGRÁFICA
+   ========================================================= */
+
+.portal {
+  opacity: 0;
+  animation:
+    portal-activation 1.2s 0.15s ease-out forwards,
+    portal-breathe 3s 1.35s ease-in-out infinite;
+}
+
+.speed-line {
+  animation-delay: 2.6s;
+}
+
+.hud-one {
+  animation-delay: 3.25s;
+}
+
+.hud-two {
+  animation-delay: 3.5s;
+}
+
+.hud-three {
+  animation-delay: 3.7s;
+}
+
+.scene-caption {
+  animation:
+    cinematic-caption 1s 3.6s ease-out both;
+}
+
+/* Copy aparece después del arribo */
+
+.landing-copy {
+  animation:
+    landing-copy-arrival 1.2s 0.35s cubic-bezier(.16,.82,.22,1) both;
+}
+
+/* línea energética que recorre el bus */
+
+.futuristic-bus::before {
+  content: "";
+  position: absolute;
+  z-index: 50;
+  left: -10%;
+  top: 5%;
+  width: 4px;
+  height: 90%;
+  opacity: 0;
+
+  background:
+    linear-gradient(
+      transparent,
+      #fff5f7 15%,
+      #ff3c5c 40%,
+      #ffffff 50%,
+      #ff294d 65%,
+      transparent
+    );
+
+  filter:
+    blur(1px)
+    drop-shadow(0 0 8px #ff284c)
+    drop-shadow(0 0 20px rgba(255, 35, 67, 0.9));
+
+  transform: skewX(-12deg);
+
+  animation:
+    bus-energy-scan 1.15s 4.35s ease-out forwards;
+}
+
+/* segunda onda azul alrededor del bus */
+
+.futuristic-bus::after {
+  content: "";
+  position: absolute;
+  z-index: 49;
+  left: 3%;
+  right: 3%;
+  top: 50%;
+  height: 2px;
+  opacity: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #77efff,
+      #ffffff,
+      #77efff,
+      transparent
+    );
+
+  box-shadow:
+    0 0 12px #53e7ff,
+    0 0 30px rgba(65, 221, 255, 0.7);
+
+  animation:
+    bus-energy-wave 1s 4.65s ease-out forwards;
+}
+
+/* =========================================================
+   KEYFRAMES CINEMÁTICOS
+   ========================================================= */
+
+@keyframes portal-activation {
+  0% {
+    opacity: 0;
+    transform: scale(0.35);
+    filter: blur(15px);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale(1.08);
+    filter: blur(1px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes portal-breathe {
+  0%,
+  100% {
+    filter:
+      brightness(1)
+      drop-shadow(0 0 15px rgba(53, 219, 255, 0.2));
+  }
+
+  50% {
+    filter:
+      brightness(1.25)
+      drop-shadow(0 0 35px rgba(53, 219, 255, 0.45));
+  }
+}
+
+@keyframes nebula-cinematic-arrival {
+  0% {
+    opacity: 0;
+    transform:
+      translateY(85px)
+      scale(0.45);
+    filter:
+      blur(12px)
+      brightness(2.2);
+  }
+
+  35% {
+    opacity: 0.7;
+  }
+
+  70% {
+    opacity: 1;
+    transform:
+      translateY(-8px)
+      scale(1.04);
+    filter:
+      blur(1px)
+      brightness(1.35);
+  }
+
+  100% {
+    opacity: 1;
+    transform:
+      translateY(0)
+      scale(1);
+    filter:
+      blur(0)
+      brightness(1);
+  }
+}
+
+@keyframes bus-cinematic-arrival {
+  0% {
+    opacity: 0;
+    transform:
+      perspective(1000px)
+      translateX(240px)
+      translateY(30px)
+      scale(0.55)
+      rotateY(-12deg);
+
+    filter:
+      blur(13px)
+      brightness(2.2)
+      saturate(1.5);
+  }
+
+  28% {
+    opacity: 0.55;
+  }
+
+  65% {
+    opacity: 1;
+
+    transform:
+      perspective(1000px)
+      translateX(-15px)
+      translateY(-4px)
+      scale(1.04)
+      rotateY(-5deg);
+
+    filter:
+      blur(1px)
+      brightness(1.25)
+      saturate(1.35);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      perspective(1000px)
+      translateX(0)
+      translateY(0)
+      scale(1)
+      rotateY(-4deg);
+
+    filter:
+      blur(0)
+      brightness(1)
+      saturate(1.15);
+  }
+}
+
+@keyframes ruby-reflection {
+  0%,
+  55% {
+    left: -25%;
+    opacity: 0;
+  }
+
+  65% {
+    opacity: 1;
+  }
+
+  90%,
+  100% {
+    left: 125%;
+    opacity: 0;
+  }
+}
+
+@keyframes bus-energy-scan {
+  0% {
+    left: -10%;
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    left: 110%;
+    opacity: 0;
+  }
+}
+
+@keyframes bus-energy-wave {
+  0% {
+    transform: scaleX(0.05);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  75% {
+    transform: scaleX(1);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scaleX(1.15);
+    opacity: 0;
+  }
+}
+
+@keyframes cinematic-caption {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes landing-copy-arrival {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* =========================================================
+   MOBILE COLOR ADJUSTMENTS
+   ========================================================= */
+
+@media (max-width: 800px) {
+  .futuristic-bus {
+    animation:
+      bus-cinematic-arrival 2.4s 1.8s cubic-bezier(.16,.82,.22,1) both,
+      bus-hover 6s 4.2s ease-in-out infinite;
+  }
+
+  .nebula-passenger {
+    animation:
+      nebula-cinematic-arrival 1.8s 0.75s cubic-bezier(.16,.82,.22,1) both,
+      character-float 4s 2.6s ease-in-out infinite;
+  }
+}
+
+
+/* =========================================================
+   FLEETPULSE — CINEMATIC DEPARTURE
+   BUS + NEBULA + SMOKE + PORTAL
+   ========================================================= */
+
+/*
+  La escena permanece estable unos segundos y luego
+  comienza automáticamente la salida cinematográfica.
+*/
+
+/* ---------- ACTIVACIÓN DE LA SALIDA ---------- */
+
+.landing-page {
+  animation:
+    landing-scene-stable 7.2s linear forwards;
+}
+
+/* ---------- BUS ARRANCA ---------- */
+
+.futuristic-bus {
+  animation:
+    bus-cinematic-arrival 2.6s 2.15s cubic-bezier(.16,.82,.22,1) both,
+    bus-hover 6s 4.75s ease-in-out infinite,
+    bus-departure 2.8s 7.2s cubic-bezier(.72,0,.95,.38) forwards;
+}
+
+/* ---------- NEBULA ACOMPAÑA AL BUS ---------- */
+
+.nebula-passenger {
+  animation:
+    nebula-cinematic-arrival 1.9s 0.95s cubic-bezier(.16,.82,.22,1) both,
+    character-float 4s 2.85s ease-in-out infinite,
+    nebula-departure 2.7s 7.25s cubic-bezier(.72,0,.95,.38) forwards;
+}
+
+/* ---------- PORTAL SE PREPARA PARA RECIBIRLOS ---------- */
+
+.portal {
+  animation:
+    portal-activation 1.2s 0.15s ease-out forwards,
+    portal-breathe 3s 1.35s ease-in-out infinite,
+    portal-departure-charge 2.5s 6.8s ease-in-out forwards;
+}
+
+/* ---------- BRILLO DEL BUS ANTES DE SALIR ---------- */
+
+.futuristic-bus .front-light,
+.futuristic-bus .bus-side-led,
+.futuristic-bus .lower-light-strip {
+  animation:
+    departure-lights 0.8s 6.9s ease-in-out infinite alternate;
+}
+
+/* ---------- HUMO PRINCIPAL ---------- */
+
+.futuristic-bus .bus-underlight::before {
+  content: "";
+  position: absolute;
+
+  left: -20px;
+  bottom: -10px;
+
+  width: 130px;
+  height: 55px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(205, 220, 230, 0.32) 0%,
+      rgba(127, 148, 160, 0.20) 28%,
+      rgba(72, 88, 98, 0.10) 48%,
+      transparent 72%
+    );
+
+  filter: blur(8px);
+
+  opacity: 0;
+
+  animation:
+    exhaust-smoke 2.8s 7.25s ease-out infinite;
+}
+
+/* ---------- SEGUNDO BANCO DE FUMO ---------- */
+
+.futuristic-bus .bus-underlight::after {
+  content: "";
+
+  position: absolute;
+
+  left: -75px;
+  bottom: -20px;
+
+  width: 170px;
+  height: 70px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(226, 235, 239, 0.20),
+      rgba(100, 120, 132, 0.08) 42%,
+      transparent 72%
+    );
+
+  filter: blur(13px);
+
+  opacity: 0;
+
+  animation:
+    exhaust-smoke-secondary 3.2s 7.35s ease-out infinite;
+}
+
+/* ---------- PARTÍCULAS DE ACELERACIÓN ---------- */
+
+.speed-line {
+  animation:
+    speed-line 0.8s 7s linear infinite,
+    departure-speed-lines 2.5s 7s ease-in forwards;
+}
+
+/* ---------- ESTELA ROJA ---------- */
+
+.futuristic-bus::after {
+  animation:
+    bus-energy-wave 1s 4.65s ease-out forwards,
+    ruby-trail 2.8s 7.1s ease-out forwards;
+}
+
+/* ---------- AURA AZUL DEL PERSONAJE ---------- */
+
+.nebula-energy-ring {
+  animation:
+    portal-ring-pulse 2s 1s ease-in-out infinite,
+    nebula-departure-energy 2.7s 7.2s ease-in forwards;
+}
+
+/* ---------- PARTICULAS DE NEBULA ---------- */
+
+.nebula-passenger::after {
+  content: "";
+
+  position: absolute;
+
+  left: -35px;
+  top: 10%;
+  width: 140px;
+  height: 80%;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(circle at 20% 20%, rgba(132,245,255,.9) 0 2px, transparent 3px),
+    radial-gradient(circle at 55% 38%, rgba(176,250,255,.8) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 35% 65%, rgba(88,225,255,.7) 0 2px, transparent 3px),
+    radial-gradient(circle at 75% 78%, rgba(213,255,255,.8) 0 1.5px, transparent 3px);
+
+  filter:
+    drop-shadow(0 0 7px #5deaff);
+
+  opacity: 0;
+
+  animation:
+    nebula-particles-departure 2.7s 7.2s ease-out forwards;
+}
+
+/* =========================================================
+   KEYFRAMES
+   ========================================================= */
+
+@keyframes landing-scene-stable {
+  0%,
+  91% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.98;
+  }
+}
+
+/* ---------- BUS ---------- */
+
+@keyframes bus-departure {
+  0% {
+    opacity: 1;
+
+    transform:
+      perspective(1000px)
+      translateX(0)
+      translateY(0)
+      scale(1)
+      rotateY(-4deg);
+
+    filter:
+      blur(0)
+      brightness(1.1)
+      saturate(1.2);
+  }
+
+  15% {
+    transform:
+      perspective(1000px)
+      translateX(-20px)
+      translateY(-3px)
+      scale(1.015)
+      rotateY(-4deg);
+
+    filter:
+      blur(0)
+      brightness(1.35)
+      saturate(1.35);
+  }
+
+  38% {
+    transform:
+      perspective(1000px)
+      translateX(100px)
+      translateY(-8px)
+      scale(1.03)
+      rotateY(-6deg);
+
+    filter:
+      blur(1px)
+      brightness(1.5)
+      saturate(1.45);
+  }
+
+  70% {
+    transform:
+      perspective(1000px)
+      translateX(420px)
+      translateY(-25px)
+      scale(0.91)
+      rotateY(-9deg);
+
+    filter:
+      blur(3px)
+      brightness(1.6)
+      saturate(1.4);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      perspective(1000px)
+      translateX(850px)
+      translateY(-90px)
+      scale(0.35)
+      rotateY(-16deg);
+
+    filter:
+      blur(14px)
+      brightness(2)
+      saturate(1.5);
+  }
+}
+
+/* ---------- PERSONAJE ---------- */
+
+@keyframes nebula-departure {
+  0% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      translateX(0)
+      scale(1);
+  }
+
+  18% {
+    transform:
+      translateY(-3px)
+      translateX(20px)
+      scale(1.01);
+  }
+
+  42% {
+    transform:
+      translateY(-12px)
+      translateX(115px)
+      scale(0.99);
+  }
+
+  70% {
+    transform:
+      translateY(-28px)
+      translateX(380px)
+      scale(0.82);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translateY(-75px)
+      translateX(720px)
+      scale(0.25);
+    filter:
+      blur(13px)
+      brightness(1.8);
+  }
+}
+
+/* ---------- LUCES ---------- */
+
+@keyframes departure-lights {
+  from {
+    filter:
+      brightness(1)
+      drop-shadow(0 0 8px rgba(255, 35, 67, .7));
+  }
+
+  to {
+    filter:
+      brightness(2.1)
+      drop-shadow(0 0 22px rgba(255, 35, 67, 1))
+      drop-shadow(0 0 40px rgba(255, 35, 67, .7));
+  }
+}
+
+/* ---------- HUMO ---------- */
+
+@keyframes exhaust-smoke {
+  0% {
+    opacity: 0;
+    transform:
+      translateX(15px)
+      translateY(8px)
+      scale(.45);
+  }
+
+  15% {
+    opacity: .8;
+  }
+
+  45% {
+    opacity: .45;
+    transform:
+      translateX(-55px)
+      translateY(-3px)
+      scale(1);
+  }
+
+  75% {
+    opacity: .18;
+    transform:
+      translateX(-130px)
+      translateY(-18px)
+      scale(1.45);
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translateX(-220px)
+      translateY(-35px)
+      scale(1.9);
+  }
+}
+
+@keyframes exhaust-smoke-secondary {
+  0% {
+    opacity: 0;
+    transform:
+      translateX(20px)
+      translateY(15px)
+      scale(.3);
+  }
+
+  20% {
+    opacity: .5;
+  }
+
+  60% {
+    opacity: .2;
+    transform:
+      translateX(-120px)
+      translateY(-12px)
+      scale(1.4);
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translateX(-250px)
+      translateY(-45px)
+      scale(2);
+  }
+}
+
+/* ---------- VELOCIDAD ---------- */
+
+@keyframes departure-speed-lines {
+  0% {
+    opacity: 0;
+    transform: translateX(0) scaleX(.2);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-500px) scaleX(2.8);
+  }
+}
+
+/* ---------- ESTELA ROJA ---------- */
+
+@keyframes ruby-trail {
+  0% {
+    opacity: 0;
+    transform: scaleX(.1);
+  }
+
+  20% {
+    opacity: .9;
+  }
+
+  70% {
+    opacity: .45;
+    transform: scaleX(2);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scaleX(3.5);
+  }
+}
+
+/* ---------- PORTAL ---------- */
+
+@keyframes portal-departure-charge {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+
+  35% {
+    transform: scale(1.06);
+    filter: brightness(1.4);
+  }
+
+  65% {
+    transform: scale(1.15);
+    filter: brightness(1.8);
+  }
+
+  100% {
+    transform: scale(1.28);
+    filter: brightness(2.3);
+  }
+}
+
+/* ---------- ENERGÍA NEBULA ---------- */
+
+@keyframes nebula-departure-energy {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.35);
+    opacity: .85;
+  }
+
+  100% {
+    transform: scale(2.3);
+    opacity: 0;
+  }
+}
+
+@keyframes nebula-particles-departure {
+  0% {
+    opacity: 0;
+    transform:
+      translateX(0)
+      scale(.5);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: .65;
+    transform:
+      translateX(-80px)
+      scale(1.2);
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translateX(-180px)
+      scale(1.8);
+  }
+}
+
+/* =========================================================
+   FADE FINAL
+   ========================================================= */
+
+.landing-page::after {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  z-index: 9999;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 70% 50%,
+      rgba(76, 229, 255, 0.08),
+      transparent 25%
+    ),
+    #010308;
+
+  opacity: 0;
+
+  animation:
+    final-cinematic-fade 1.2s 9.3s ease-in forwards;
+}
+
+@keyframes final-cinematic-fade {
+  0% {
+    opacity: 0;
+  }
+
+  70% {
+    opacity: .75;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   FINAL NAVIGATION OVERRIDE
+   La salida solamente comienza al pulsar
+   "ENTRAR AL SISTEMA".
+   ========================================================= */
+
+/* Estado normal: solamente animaciones de entrada/idle */
+
+.futuristic-bus {
+  animation:
+    bus-cinematic-arrival 2.6s 2.15s cubic-bezier(.16,.82,.22,1) both,
+    bus-hover 6s 4.75s ease-in-out infinite;
+}
+
+.nebula-passenger {
+  animation:
+    nebula-cinematic-arrival 1.9s .95s cubic-bezier(.16,.82,.22,1) both,
+    character-float 4s 2.85s ease-in-out infinite;
+}
+
+.portal {
+  animation:
+    portal-activation 1.2s .15s ease-out forwards,
+    portal-breathe 3s 1.35s ease-in-out infinite;
+}
+
+/* No fade automático */
+
+.landing-page::after {
+  animation: none;
+  opacity: 0;
+}
+
+/* =========================================================
+   DEPARTURE STATE
+   ========================================================= */
+
+.landing-page.is-departing {
+  cursor: wait;
+}
+
+/* Texto */
+
+.landing-page.is-departing .landing-copy {
+  animation:
+    departure-copy-fade .7s ease-out forwards;
+}
+
+.landing-page.is-departing .architecture-tags {
+  animation:
+    departure-copy-fade .5s .1s ease-out forwards;
+}
+
+/* Botón */
+
+.landing-page.is-departing .continue-button {
+  pointer-events: none;
+
+  border-color: rgba(90, 235, 255, .8);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(32, 130, 160, .3),
+      rgba(65, 220, 255, .15)
+    );
+
+  box-shadow:
+    0 0 18px rgba(58, 220, 255, .35);
+}
+
+/* Portal aumenta potencia */
+
+.landing-page.is-departing .portal {
+  animation:
+    portal-activation 1.2s .15s ease-out forwards,
+    portal-breathe 1.5s 1.35s ease-in-out infinite,
+    portal-departure-charge 2.7s 0s ease-in-out forwards;
+}
+
+/* Personaje sale */
+
+.landing-page.is-departing .nebula-passenger {
+  animation:
+    nebula-cinematic-arrival 1.9s .95s cubic-bezier(.16,.82,.22,1) both,
+    nebula-departure 2.7s .1s cubic-bezier(.72,0,.95,.38) forwards;
+}
+
+/* Bus sale */
+
+.landing-page.is-departing .futuristic-bus {
+  animation:
+    bus-cinematic-arrival 2.6s 2.15s cubic-bezier(.16,.82,.22,1) both,
+    bus-departure 3.1s .25s cubic-bezier(.72,0,.95,.38) forwards;
+}
+
+/* Aura del personaje */
+
+.landing-page.is-departing .nebula-energy-ring {
+  animation:
+    nebula-departure-energy 2.7s .1s ease-in forwards;
+}
+
+/* Luces del bus */
+
+.landing-page.is-departing .front-light,
+.landing-page.is-departing .bus-side-led,
+.landing-page.is-departing .lower-light-strip {
+  animation:
+    departure-lights .65s .1s ease-in-out infinite alternate;
+}
+
+/* Líneas de velocidad */
+
+.landing-page.is-departing .speed-line {
+  animation:
+    departure-speed-lines .75s .15s linear infinite;
+}
+
+/* Humo */
+
+.landing-page.is-departing .bus-underlight::before {
+  animation:
+    exhaust-smoke 2.7s .15s ease-out infinite;
+}
+
+.landing-page.is-departing .bus-underlight::after {
+  animation:
+    exhaust-smoke-secondary 3s .25s ease-out infinite;
+}
+
+/* Partículas de salida */
+
+.landing-page.is-departing .nebula-passenger::after {
+  animation:
+    nebula-particles-departure 2.7s .1s ease-out forwards;
+}
+
+/* Scan rojo del bus */
+
+.landing-page.is-departing .futuristic-bus::before {
+  animation:
+    bus-energy-scan 1s .15s ease-out forwards;
+}
+
+/* Onda energética */
+
+.landing-page.is-departing .futuristic-bus::after {
+  animation:
+    ruby-trail 2.8s .2s ease-out forwards;
+}
+
+/* HUD desaparece con la escena */
+
+.landing-page.is-departing .data-hud,
+.landing-page.is-departing .scene-caption {
+  animation:
+    departure-copy-fade .8s .15s ease-out forwards;
+}
+
+/* =========================================================
+   FADE FINAL
+   ========================================================= */
+
+.landing-page.is-departing::after {
+  animation:
+    final-cinematic-fade 1.2s 7.55s ease-in forwards;
+}
+
+/* =========================================================
+   ESTADO DE CONEXIÓN
+   ========================================================= */
+
+.departure-status {
+  position: fixed;
+
+  left: 50%;
+  bottom: 28px;
+
+  transform: translateX(-50%);
+
+  z-index: 500;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 8px 15px;
+
+  border:
+    1px solid rgba(83, 226, 255, .18);
+
+  background:
+    rgba(2, 10, 18, .52);
+
+  backdrop-filter: blur(12px);
+
+  color:
+    rgba(181, 241, 250, .62);
+
+  font-size: 9px;
+
+  letter-spacing: .18em;
+
+  white-space: nowrap;
+
+  transition:
+    border-color .4s ease,
+    color .4s ease,
+    box-shadow .4s ease;
+}
+
+.departure-status span {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #62eaff;
+
+  box-shadow:
+    0 0 9px #62eaff;
+}
+
+.landing-page.is-departing .departure-status {
+  color: #a8f5ff;
+
+  border-color:
+    rgba(83, 226, 255, .55);
+
+  box-shadow:
+    0 0 20px rgba(52, 213, 255, .12);
+}
+
+.landing-page.is-departing .departure-status span {
+  animation:
+    status-pulse .45s ease-in-out infinite alternate;
+}
+
+/* =========================================================
+   KEYFRAMES
+   ========================================================= */
+
+@keyframes departure-copy-fade {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-18px);
+    filter: blur(5px);
+  }
+}
+
+@keyframes status-pulse {
+  from {
+    transform: scale(.7);
+    opacity: .45;
+  }
+
+  to {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   DASHBOARD ENTRY
+   ========================================================= */
+
+.dashboard-page {
+  animation:
+    dashboard-entry .9s cubic-bezier(.16,.82,.22,1) both;
+}
+
+@keyframes dashboard-entry {
+  from {
+    opacity: 0;
+    transform: scale(1.025);
+    filter: blur(10px);
+  }
+
+  60% {
+    opacity: 1;
+    filter: blur(2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 800px) {
+
+  .departure-status {
+    bottom: 16px;
+
+    max-width: calc(100vw - 30px);
+
+    font-size: 8px;
+
+    letter-spacing: .12em;
+  }
+
+  .landing-page.is-departing .futuristic-bus {
+    animation:
+      bus-cinematic-arrival 2.2s 1.5s cubic-bezier(.16,.82,.22,1) both,
+      bus-departure 2.8s .2s cubic-bezier(.72,0,.95,.38) forwards;
+  }
+
+}
+
+
+/* =========================================================
+   FLEETPULSE — TRANSICIÓN OPTIMIZADA
+   Prioridad: movimiento fluido / GPU
+   ========================================================= */
+
+.landing-page.is-departing {
+  overflow: hidden;
+  will-change: opacity;
+}
+
+/* Evita recalcular constantemente elementos estáticos */
+.landing-page.is-departing .portal,
+.landing-page.is-departing .nebula-character,
+.landing-page.is-departing .futuristic-bus,
+.landing-page.is-departing .speed-lines,
+.landing-page.is-departing .particles,
+.landing-page.is-departing .hud,
+.landing-page.is-departing .landing-copy {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Portal */
+.landing-page.is-departing .portal {
+  animation:
+    departure-portal 1.8s ease-in forwards;
+}
+
+/* NEBULA */
+.landing-page.is-departing .nebula-character {
+  animation:
+    departure-nebula 1.9s cubic-bezier(.22,.61,.36,1) forwards;
+}
+
+/* BUS */
+.landing-page.is-departing .futuristic-bus {
+  animation:
+    departure-bus 2.35s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+/* Líneas de velocidad */
+.landing-page.is-departing .speed-lines {
+  animation:
+    departure-speed 1.35s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+/* Partículas */
+.landing-page.is-departing .particles {
+  animation:
+    departure-particles 1.5s ease-out forwards;
+}
+
+/* HUD / textos */
+.landing-page.is-departing .hud,
+.landing-page.is-departing .landing-copy {
+  animation:
+    departure-fade .7s ease-out forwards;
+}
+
+/* Estado inferior */
+.departure-status {
+  opacity: 0;
+  transform: translateY(8px) translateZ(0);
+  transition:
+    opacity .25s ease,
+    transform .25s ease;
+  will-change: opacity, transform;
+}
+
+.landing-page.is-departing .departure-status {
+  opacity: 1;
+  transform: translateY(0) translateZ(0);
+}
+
+/* =========================================================
+   KEYFRAMES — simples y GPU friendly
+   ========================================================= */
+
+@keyframes departure-bus {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+
+  45% {
+    transform: translate3d(4vw, 0, 0) scale(1.015);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate3d(125vw, 0, 0) scale(1.08);
+    opacity: 0;
+  }
+}
+
+@keyframes departure-nebula {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+
+  45% {
+    transform: translate3d(3vw, -1vh, 0) scale(1.01);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate3d(100vw, -3vh, 0) scale(1.04);
+    opacity: 0;
+  }
+}
+
+@keyframes departure-portal {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+
+  55% {
+    transform: translate3d(0, 0, 0) scale(1.08);
+    opacity: .95;
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.3);
+    opacity: 0;
+  }
+}
+
+@keyframes departure-speed {
+  0% {
+    transform: translate3d(0, 0, 0) scaleX(1);
+    opacity: .35;
+  }
+
+  100% {
+    transform: translate3d(35vw, 0, 0) scaleX(1.8);
+    opacity: 0;
+  }
+}
+
+@keyframes departure-particles {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate3d(25vw, -8vh, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes departure-fade {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -12px, 0);
+  }
+}
+
+/* Reduce motion automatically for users who have it enabled */
+@media (prefers-reduced-motion: reduce) {
+  .landing-page.is-departing * {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .landing-page.is-departing .futuristic-bus {
+    animation-duration: 2s;
+  }
+
+  .landing-page.is-departing .nebula-character {
+    animation-duration: 1.7s;
+  }
+}
+
