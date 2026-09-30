@@ -12,6 +12,10 @@ import {
 } from "../../../../packages/events/vehicle-generated.js";
 
 import {
+  EventStore
+} from "../../../../packages/events/event-store.js";
+
+import {
   ProcessedEventStore
 } from "./processed-event-store.js";
 
@@ -27,6 +31,10 @@ import {
   StatisticsRepository
 } from "./projection/statistics-repository.js";
 
+import {
+  FleetMetrics
+} from "../services/metrics.service.js";
+
 export interface EventBatchProcessor {
   start(
     events$: Observable<VehicleGeneratedEvent>,
@@ -41,6 +49,7 @@ export interface EventBatchProcessorOptions {
 }
 
 export function createEventBatchProcessor(
+  eventStore: EventStore,
   processedEventStore: ProcessedEventStore,
   statisticsRepository: StatisticsRepository,
   options: EventBatchProcessorOptions = {}
@@ -66,6 +75,7 @@ export function createEventBatchProcessor(
               from(
                 processBatch(
                   batch,
+                  eventStore,
                   processedEventStore,
                   statisticsRepository,
                   options
@@ -87,22 +97,25 @@ export function createEventBatchProcessor(
 
 async function processBatch(
   batch: VehicleGeneratedEvent[],
+  eventStore: EventStore,
   processedEventStore: ProcessedEventStore,
   statisticsRepository: StatisticsRepository,
   options: EventBatchProcessorOptions
 ): Promise<void> {
 
-  const newEvents: VehicleGeneratedEvent[] = [];
+  const timer = FleetMetrics.dbWriteDuration.startTimer();
 
+  const newEvents: VehicleGeneratedEvent[] = [];
   const seenAids = new Set<string>();
 
   for (const event of batch) {
-
     if (seenAids.has(event.aid)) {
       continue;
     }
 
     seenAids.add(event.aid);
+
+    await eventStore.append(event);
 
     const alreadyProcessed =
       await processedEventStore.exists(
@@ -117,11 +130,10 @@ async function processBatch(
   }
 
   if (newEvents.length === 0) {
-
+    timer();
     console.log(
       `[ms-reporter] batch ignored: received=${batch.length} new=0`
     );
-
     return;
   }
 
@@ -140,7 +152,6 @@ async function processBatch(
   let processed = 0;
 
   for (const event of newEvents) {
-
     const marked =
       await processedEventStore.markAsProcessed(
         event.aid
@@ -148,8 +159,15 @@ async function processBatch(
 
     if (marked) {
       processed += 1;
+      const vehicleType = (event as Record<string, any>).vehicleType || "UNKNOWN";
+      FleetMetrics.vehiclesProcessed.inc({
+        type: String(vehicleType),
+        status: "processed"
+      });
     }
   }
+
+  timer();
 
   console.log(
     `[ms-reporter] batch processed received=${batch.length} new=${newEvents.length} processed=${processed}`

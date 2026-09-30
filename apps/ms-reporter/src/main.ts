@@ -1,11 +1,21 @@
-﻿import { createEventBatchProcessor } from "./application/process-event-batches.js";
+﻿import http from "http";
+import { createEventBatchProcessor } from "./application/process-event-batches.js";
 import { loadReporterConfig } from "./config/reporter-config.js";
+import { MongoEventStore } from "./infrastructure/mongodb-event-store.js";
 import { MongoProcessedEventStore } from "./infrastructure/mongodb-processed-event-store.js";
 import { MongoStatisticsRepository } from "./infrastructure/mongodb-statistics-repository.js";
 import { MqttEventSubscriber } from "./infrastructure/mqtt-event-subscriber.js";
 import { StatisticsWebSocketServer } from "./presentation/websocket/statistics-websocket-server.js";
+import { FleetMetrics } from "./services/metrics.service.js";
 
 const config = loadReporterConfig();
+
+const eventStore =
+  new MongoEventStore({
+    uri: config.mongoUri,
+    database: config.mongoDatabase,
+    collection: config.eventStoreCollection
+  });
 
 const processedEventStore =
   new MongoProcessedEventStore({
@@ -36,8 +46,26 @@ const webSocketServer =
     )
   });
 
+// Servidor HTTP para observabilidad y Prometheus
+const metricsPort = Number(process.env.METRICS_PORT ?? 9090);
+const metricsServer = http.createServer(async (req, res) => {
+  if (req.url === "/metrics" && req.method === "GET") {
+    try {
+      res.setHeader("Content-Type", FleetMetrics.registry.contentType);
+      res.end(await FleetMetrics.registry.metrics());
+    } catch (err) {
+      res.statusCode = 500;
+      res.end("Internal Server Error");
+    }
+  } else {
+    res.statusCode = 404;
+    res.end("Not Found");
+  }
+});
+
 const processor =
   createEventBatchProcessor(
+    eventStore,
     processedEventStore,
     statisticsRepository,
     {
@@ -73,7 +101,11 @@ async function shutdown(
     subscription.unsubscribe();
   }
 
+  metricsServer.close();
+
   await subscriber.close();
+
+  await eventStore.close();
 
   await processedEventStore.close();
 
@@ -96,9 +128,15 @@ process.once("SIGTERM", () => {
 
 async function start(): Promise<void> {
 
+  await eventStore.connect();
+
   await processedEventStore.connect();
 
   await statisticsRepository.connect();
+
+  metricsServer.listen(metricsPort, () => {
+    console.log(`[ms-reporter] metrics server running on http://localhost:${metricsPort}/metrics`);
+  });
 
   subscription =
     processor.start(
@@ -127,6 +165,10 @@ async function start(): Promise<void> {
   );
 
   console.log(
+    `[ms-reporter] eventStoreCollection=${config.eventStoreCollection}`
+  );
+
+  console.log(
     "[ms-reporter] processedEventCollection=processed_vehicles"
   );
 
@@ -147,7 +189,11 @@ void start().catch(
       error
     );
 
+    metricsServer.close();
+
     await subscriber.close();
+
+    await eventStore.close();
 
     await processedEventStore.close();
 
