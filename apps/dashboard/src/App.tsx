@@ -17,36 +17,41 @@ interface VirtualRowProps {
   items: Array<[string, number]>;
 }
 
-const VirtualizedDataRow = memo(
-  ({
-    index,
-    style,
-    items
-  }: {
-    index: number;
-    style: React.CSSProperties;
-    items: Array<[string, number]>;
-  }) => {
-    const [label, count] = items[index];
+interface VirtualizedRowComponentProps {
+  index: number;
+  style: React.CSSProperties;
+  items: Array<[string, number]>;
+  ariaAttributes: {
+    "aria-posinset": number;
+    "aria-setsize": number;
+    role: "listitem";
+  };
+}
 
-    return (
-      <div
-        className="data-row"
-        style={style}
-      >
-        <span>
-          {label}
-        </span>
+const VirtualizedDataRow = ({
+  index,
+  style,
+  items,
+  ariaAttributes
+}: VirtualizedRowComponentProps): React.ReactElement => {
+  const [label, count] = items[index];
 
-        <strong>
-          {count}
-        </strong>
-      </div>
-    );
-  }
-);
+  return (
+    <div
+      {...ariaAttributes}
+      className="data-row"
+      style={style}
+    >
+      <span>
+        {label}
+      </span>
 
-VirtualizedDataRow.displayName = "VirtualizedDataRow";
+      <strong>
+        {count}
+      </strong>
+    </div>
+  );
+};
 
 interface VirtualizedDataListProps {
   items: Array<[string, number]>;
@@ -903,3 +908,6 @@ function App() {
 }
 
 export default App;
+
+
+
