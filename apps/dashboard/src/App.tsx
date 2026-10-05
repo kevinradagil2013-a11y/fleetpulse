@@ -1,4 +1,11 @@
-﻿import { useEffect, useState } from "react";
+﻿import {
+  memo,
+  useEffect,
+  useRef,
+  useState
+} from "react";
+
+import { List } from "react-window";
 
 import { fetchFleetStatistics } from "./api/graphql.js";
 import {
@@ -6,17 +13,98 @@ import {
 } from "./api/websocket.js";
 import type { FleetStatistics } from "./types.js";
 
+interface VirtualRowProps {
+  items: Array<[string, number]>;
+}
+
+const VirtualizedDataRow = memo(
+  ({
+    index,
+    style,
+    items
+  }: {
+    index: number;
+    style: React.CSSProperties;
+    items: Array<[string, number]>;
+  }) => {
+    const [label, count] = items[index];
+
+    return (
+      <div
+        className="data-row"
+        style={style}
+      >
+        <span>
+          {label}
+        </span>
+
+        <strong>
+          {count}
+        </strong>
+      </div>
+    );
+  }
+);
+
+VirtualizedDataRow.displayName = "VirtualizedDataRow";
+
+interface VirtualizedDataListProps {
+  items: Array<[string, number]>;
+}
+
+const VirtualizedDataList = memo(
+  ({
+    items
+  }: VirtualizedDataListProps) => {
+    return (
+      <List<VirtualRowProps>
+        rowCount={items.length}
+        rowHeight={36}
+        overscanCount={2}
+        defaultHeight={108}
+        rowProps={{
+          items
+        }}
+        rowComponent={VirtualizedDataRow}
+        style={{
+          width: "100%",
+          height: "108px"
+        }}
+      />
+    );
+  }
+);
+
+VirtualizedDataList.displayName =
+  "VirtualizedDataList";
+
 function App() {
-  const [showDashboard, setShowDashboard] = useState(false);
-  const [isDeparting, setIsDeparting] = useState(false);
+  const [showDashboard, setShowDashboard] =
+    useState(false);
+
+  const [isDeparting, setIsDeparting] =
+    useState(false);
 
   const [statistics, setStatistics] =
     useState<FleetStatistics | null>(null);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] =
+    useState(true);
 
   const [error, setError] =
     useState<string | null>(null);
+
+  /*
+   * Estado recibido por WebSocket.
+   *
+   * Se mantiene separado del estado visual para
+   * evitar renderizar el dashboard en cada evento.
+   */
+  const latestStatisticsRef =
+    useRef<FleetStatistics | null>(null);
+
+  const displayedStatisticsRef =
+    useRef<FleetStatistics | null>(null);
 
   /*
    * Cargamos GraphQL desde el inicio.
@@ -32,6 +120,8 @@ function App() {
           await fetchFleetStatistics();
 
         if (active) {
+          latestStatisticsRef.current = result;
+          displayedStatisticsRef.current = result;
           setStatistics(result);
         }
       } catch (err) {
@@ -59,17 +149,69 @@ function App() {
   /*
    * WebSocket permanece conectado incluso durante
    * la portada para que el dashboard llegue actualizado.
+   *
+   * Los eventos entrantes se guardan en un ref.
+   * No provocamos un render por cada mensaje.
    */
   useEffect(() => {
     const disconnect =
       connectFleetStatisticsWebSocket(
         (updatedStatistics) => {
-          setStatistics(updatedStatistics);
-          setError(null);
+          const current =
+            latestStatisticsRef.current;
+
+          if (
+            !current ||
+            new Date(
+              updatedStatistics.lastUpdated
+            ).getTime() >=
+              new Date(
+                current.lastUpdated
+              ).getTime()
+          ) {
+            latestStatisticsRef.current =
+              updatedStatistics;
+
+            setError(null);
+          }
         }
       );
 
     return disconnect;
+  }, []);
+
+  /*
+   * Control de frecuencia visual:
+   *
+   * El backend puede producir muchos eventos,
+   * pero React actualiza la interfaz como máximo
+   * una vez por segundo.
+   */
+  useEffect(() => {
+    const visualUpdateInterval =
+      window.setInterval(() => {
+        const latest =
+          latestStatisticsRef.current;
+
+        const displayed =
+          displayedStatisticsRef.current;
+
+        if (
+          latest &&
+          latest !== displayed
+        ) {
+          displayedStatisticsRef.current =
+            latest;
+
+          setStatistics(latest);
+        }
+      }, 1000);
+
+    return () => {
+      window.clearInterval(
+        visualUpdateInterval
+      );
+    };
   }, []);
 
   /*
@@ -537,6 +679,21 @@ function App() {
     );
   }
 
+  const vehiclesByType =
+    Object.entries(
+      statistics.vehiclesByType
+    );
+
+  const vehiclesByDecade =
+    Object.entries(
+      statistics.vehiclesByDecade
+    );
+
+  const vehiclesBySpeedClass =
+    Object.entries(
+      statistics.vehiclesBySpeedClass
+    );
+
   return (
     <main className="dashboard-page">
 
@@ -667,6 +824,7 @@ function App() {
         <article className="data-card">
 
           <div className="card-heading">
+
             <h2>
               Vehículos por tipo
             </h2>
@@ -674,26 +832,12 @@ function App() {
             <span>
               01
             </span>
+
           </div>
 
-          {Object.entries(
-            statistics.vehiclesByType
-          ).map(
-            ([type, count]) => (
-              <div
-                className="data-row"
-                key={type}
-              >
-                <span>
-                  {type}
-                </span>
-
-                <strong>
-                  {count}
-                </strong>
-              </div>
-            )
-          )}
+          <VirtualizedDataList
+            items={vehiclesByType}
+          />
 
         </article>
 
@@ -711,24 +855,9 @@ function App() {
 
           </div>
 
-          {Object.entries(
-            statistics.vehiclesByDecade
-          ).map(
-            ([decade, count]) => (
-              <div
-                className="data-row"
-                key={decade}
-              >
-                <span>
-                  {decade}
-                </span>
-
-                <strong>
-                  {count}
-                </strong>
-              </div>
-            )
-          )}
+          <VirtualizedDataList
+            items={vehiclesByDecade}
+          />
 
         </article>
 
@@ -746,24 +875,9 @@ function App() {
 
           </div>
 
-          {Object.entries(
-            statistics.vehiclesBySpeedClass
-          ).map(
-            ([speedClass, count]) => (
-              <div
-                className="data-row"
-                key={speedClass}
-              >
-                <span>
-                  {speedClass}
-                </span>
-
-                <strong>
-                  {count}
-                </strong>
-              </div>
-            )
-          )}
+          <VirtualizedDataList
+            items={vehiclesBySpeedClass}
+          />
 
         </article>
 
@@ -789,4 +903,3 @@ function App() {
 }
 
 export default App;
-

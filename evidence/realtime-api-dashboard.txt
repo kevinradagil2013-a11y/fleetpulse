@@ -1,0 +1,24 @@
+﻿FleetPulse Week 4 - Real-Time API and Dashboard Evidence
+========================================================
+
+Criterion:
+Real-Time API and Dashboard (10 points)
+
+Implementation:
+- GraphQL API exposes getFleetStatistics.
+- GraphQL schema exposes fleet statistics and HP statistics.
+- WebSocket server provides real-time statistics updates.
+- Dashboard consumes the GraphQL API.
+- Dashboard subscribes to WebSocket updates.
+- Dashboard renders the real-time fleet statistics.
+- Dashboard uses react-window for virtualized lists.
+
+Verification:
+- TypeScript build: PASS
+- Command: npm.cmd run build
+- Result: tsc --noEmit completed successfully.
+- GraphQL port: 4000
+- WebSocket port: 4001
+
+Project:
+fleetpulse-week4-lab

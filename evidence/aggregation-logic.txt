@@ -1,0 +1,21 @@
+﻿FleetPulse Week 4 - Aggregation Logic Evidence
+=============================================
+
+Criterion:
+Aggregation Logic (15 points)
+
+Implementation:
+- Vehicle statistics aggregated by type.
+- Vehicle statistics aggregated by decade.
+- Vehicle statistics aggregated by speed class.
+- Horsepower statistics maintained with count, sum, average, minimum and maximum.
+- MongoDB projection uses $inc for incremental aggregation.
+- Statistics are materialized in the fleet_statistics collection.
+
+Verification:
+- TypeScript build: PASS
+- Command: npm.cmd run build
+- Result: tsc --noEmit completed successfully.
+
+Project:
+fleetpulse-week4-lab

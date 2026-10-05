@@ -1,0 +1,24 @@
+﻿FleetPulse Week 4 - Frontend Performance Evidence
+===============================================
+
+Criterion:
+Frontend Performance (15 points)
+
+Implementation:
+- react-window List used for virtualized data lists.
+- VirtualizedDataRow wrapped with React.memo.
+- VirtualizedDataList wrapped with React.memo.
+- rowHeight = 36.
+- overscanCount = 2.
+- latestStatisticsRef stores incoming WebSocket statistics.
+- displayedStatisticsRef prevents unnecessary state updates.
+- WebSocket updates are throttled to a maximum of one visual state update per second using setInterval(1000).
+
+Verification:
+- TypeScript build: PASS
+- Command: npm.cmd run build
+- Result: tsc --noEmit completed successfully.
+- react-window version: 2.3.3
+
+Project:
+fleetpulse-week4-lab
