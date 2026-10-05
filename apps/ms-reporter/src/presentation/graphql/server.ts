@@ -30,9 +30,6 @@ async function start(): Promise<void> {
         port: Number(
           process.env.GRAPHQL_PORT ?? 4000
         )
-      },
-      cors: {
-        origin: "http://localhost:5173"
       }
     }
   );
@@ -75,3 +72,4 @@ void start().catch(
     process.exitCode = 1;
   }
 );
+
