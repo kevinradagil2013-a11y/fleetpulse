@@ -1,4 +1,5 @@
-﻿import {
+import { classifySpeed } from "../application/projection/speed-classifier.js";
+import {
   Collection,
   MongoClient
 } from "mongodb";
@@ -115,12 +116,7 @@ export class MongoStatisticsRepository
     const decade =
       `${Math.floor(year / 10) * 10}s`;
 
-    const speedClass =
-      topSpeed <= 150
-        ? "Lento"
-        : topSpeed <= 250
-          ? "Normal"
-          : "Rapido";
+    const speedClass = classifySpeed(topSpeed);
 
     const current =
       await this.collection.findOne({

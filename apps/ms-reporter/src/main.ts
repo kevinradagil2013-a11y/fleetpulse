@@ -1,4 +1,4 @@
-﻿import http from "http";
+import http from "http";
 import { createEventBatchProcessor } from "./application/process-event-batches.js";
 import { loadReporterConfig } from "./config/reporter-config.js";
 import { MongoEventStore } from "./infrastructure/mongodb-event-store.js";
@@ -221,4 +221,3 @@ void start().catch(
     process.exitCode = 1;
   }
 );
-

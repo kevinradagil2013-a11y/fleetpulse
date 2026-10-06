@@ -1,4 +1,4 @@
-﻿import {
+import {
   memo,
   useEffect,
   useRef,
@@ -1145,11 +1145,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
-
