@@ -20,10 +20,6 @@ import {
 } from "./processed-event-store.js";
 
 import {
-  projectBatch
-} from "./projection/project-batch.js";
-
-import {
   FleetStatistics
 } from "./projection/statistics-projection.js";
 
@@ -103,73 +99,63 @@ async function processBatch(
   options: EventBatchProcessorOptions
 ): Promise<void> {
 
-  const timer = FleetMetrics.dbWriteDuration.startTimer();
+  const timer =
+    FleetMetrics.dbWriteDuration.startTimer();
 
-  const newEvents: VehicleGeneratedEvent[] = [];
-  const seenAids = new Set<string>();
+  const seenAids =
+    new Set<string>();
 
-  for (const event of batch) {
-    if (seenAids.has(event.aid)) {
-      continue;
-    }
-
-    seenAids.add(event.aid);
-
-    await eventStore.append(event);
-
-    const alreadyProcessed =
-      await processedEventStore.exists(
-        event.aid
-      );
-
-    if (alreadyProcessed) {
-      continue;
-    }
-
-    newEvents.push(event);
-  }
-
-  if (newEvents.length === 0) {
-    timer();
-    console.log(
-      `[ms-reporter] batch ignored: received=${batch.length} new=0`
-    );
-    return;
-  }
-
-  const statistics =
-    projectBatch(newEvents);
-
-  const updatedStatistics =
-    await statisticsRepository.applyBatch(
-      statistics
-    );
-
-  options.onStatisticsUpdated?.(
-    updatedStatistics
-  );
-
+  let received = 0;
   let processed = 0;
+  let duplicates = 0;
 
-  for (const event of newEvents) {
-    const marked =
-      await processedEventStore.markAsProcessed(
-        event.aid
+  try {
+    for (const event of batch) {
+
+      if (seenAids.has(event.aid)) {
+        duplicates += 1;
+        continue;
+      }
+
+      seenAids.add(event.aid);
+      received += 1;
+
+      await eventStore.append(event);
+
+      const result =
+        await statisticsRepository.applyEventAtomically(
+          event
+        );
+
+      if (!result.processed) {
+        duplicates += 1;
+        continue;
+      }
+
+      processed += 1;
+
+      options.onStatisticsUpdated?.(
+        result.statistics
       );
 
-    if (marked) {
-      processed += 1;
-      const vehicleType = (event as Record<string, any>).vehicleType || "UNKNOWN";
       FleetMetrics.vehiclesProcessed.inc({
-        type: String(vehicleType),
+        type: String(event.data.type),
         status: "processed"
       });
     }
+  } finally {
+    timer();
   }
 
-  timer();
+  if (processed === 0) {
+    console.log(
+      `[ms-reporter] batch ignored: received=${batch.length} unique=${received} processed=0 duplicates=${duplicates}`
+    );
+
+    return;
+  }
 
   console.log(
-    `[ms-reporter] batch processed received=${batch.length} new=${newEvents.length} processed=${processed}`
+    `[ms-reporter] batch processed received=${batch.length} unique=${received} processed=${processed} duplicates=${duplicates}`
   );
 }

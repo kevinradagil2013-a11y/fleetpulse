@@ -1,0 +1,29 @@
+﻿# Evidencia de idempotencia atómica - FleetPulse
+
+Fecha: 2026-10-06
+
+Prueba:
+- aid: idempotency-test-001
+- Primer procesamiento: true
+- Segundo procesamiento: false
+- totalVehicles después del primer procesamiento: 53339
+- totalVehicles después del segundo procesamiento: 53339
+
+Resultado:
+El mismo evento no fue contabilizado dos veces.
+
+La operación applyEventAtomically utiliza una actualización
+condicional de MongoDB sobre el documento real_time_fleet_stats.
+El aid se registra mediante $addToSet y la condición
+processedAids: { $ne: aid } evita que una redelivery vuelva
+a incrementar las estadísticas.
+
+MongoDB utilizado:
+- MongoDB 8.3.11
+- Configuración standalone
+- Índice único aid_1 en processed_vehicles
+- No se utilizan transacciones multi-documento.
+
+Conclusión:
+La prueba confirma idempotencia efectiva frente a redelivery
+del mismo evento.

@@ -4,6 +4,10 @@
 } from "mongodb";
 
 import {
+  VehicleGeneratedEvent
+} from "../../../../packages/events/vehicle-generated.js";
+
+import {
   FleetStatistics,
   HpStats
 } from "../application/projection/statistics-projection.js";
@@ -16,12 +20,6 @@ import {
   StatisticsQuery
 } from "../application/projection/statistics-query.js";
 
-export interface MongoStatisticsRepositoryConfig {
-  uri: string;
-  database: string;
-  collection: string;
-}
-
 interface FleetStatisticsDocument {
   _id: string;
   totalVehicles: number;
@@ -30,6 +28,13 @@ interface FleetStatisticsDocument {
   vehiclesBySpeedClass: Record<string, number>;
   hpStats: HpStats;
   lastUpdated: string;
+  processedAids?: string[];
+}
+
+export interface MongoStatisticsRepositoryConfig {
+  uri: string;
+  database: string;
+  collection: string;
 }
 
 export class MongoStatisticsRepository
@@ -46,7 +51,8 @@ export class MongoStatisticsRepository
   constructor(
     config: MongoStatisticsRepositoryConfig
   ) {
-    this.client = new MongoClient(config.uri);
+    this.client =
+      new MongoClient(config.uri);
 
     const database =
       this.client.db(config.database);
@@ -92,6 +98,162 @@ export class MongoStatisticsRepository
     };
   }
 
+  async applyEventAtomically(
+    event: VehicleGeneratedEvent
+  ): Promise<{
+    statistics: FleetStatistics;
+    processed: boolean;
+  }> {
+
+    const {
+      type,
+      hp,
+      year,
+      topSpeed
+    } = event.data;
+
+    const decade =
+      `${Math.floor(year / 10) * 10}s`;
+
+    const speedClass =
+      topSpeed <= 150
+        ? "Lento"
+        : topSpeed <= 250
+          ? "Normal"
+          : "Rapido";
+
+    const current =
+      await this.collection.findOne({
+        _id: this.documentId
+      });
+
+    const alreadyProcessed =
+      current?.processedAids?.includes(
+        event.aid
+      ) ?? false;
+
+    if (alreadyProcessed) {
+      const statistics =
+        await this.getStatistics();
+
+      if (!statistics) {
+        throw new Error(
+          "No existe fleet_statistics"
+        );
+      }
+
+      return {
+        statistics,
+        processed: false
+      };
+    }
+
+    const previousSum =
+      current?.hpStats?.sum ?? 0;
+
+    const previousCount =
+      current?.hpStats?.count ?? 0;
+
+    const nextSum =
+      previousSum + hp;
+
+    const nextCount =
+      previousCount + 1;
+
+    const nextAvg =
+      nextCount > 0
+        ? nextSum / nextCount
+        : 0;
+
+    const updated =
+      await this.collection.findOneAndUpdate(
+        {
+          _id: this.documentId,
+          processedAids: {
+            $ne: event.aid
+          }
+        },
+        {
+          $inc: {
+            totalVehicles: 1,
+
+            [`vehiclesByType.${type}`]: 1,
+
+            [`vehiclesByDecade.${decade}`]: 1,
+
+            [`vehiclesBySpeedClass.${speedClass}`]: 1,
+
+            "hpStats.sum": hp,
+
+            "hpStats.count": 1
+          },
+
+          $min: {
+            "hpStats.min": hp
+          },
+
+          $max: {
+            "hpStats.max": hp
+          },
+
+          $set: {
+            "hpStats.avg": nextAvg,
+
+            lastUpdated:
+              event.timestamp
+          },
+
+          $addToSet: {
+            processedAids: event.aid
+          }
+        },
+        {
+          upsert: true,
+          returnDocument: "after"
+        }
+      );
+
+    if (!updated) {
+      const statistics =
+        await this.getStatistics();
+
+      if (!statistics) {
+        throw new Error(
+          "No existe fleet_statistics actualizado"
+        );
+      }
+
+      return {
+        statistics,
+        processed: false
+      };
+    }
+
+    return {
+      statistics: {
+        totalVehicles:
+          updated.totalVehicles,
+
+        vehiclesByType:
+          updated.vehiclesByType,
+
+        vehiclesByDecade:
+          updated.vehiclesByDecade,
+
+        vehiclesBySpeedClass:
+          updated.vehiclesBySpeedClass as FleetStatistics["vehiclesBySpeedClass"],
+
+        hpStats:
+          updated.hpStats,
+
+        lastUpdated:
+          updated.lastUpdated
+      },
+
+      processed: true
+    };
+  }
+
   async applyBatch(
     statistics: FleetStatistics
   ): Promise<FleetStatistics> {
@@ -108,10 +270,12 @@ export class MongoStatisticsRepository
       current?.hpStats?.count ?? 0;
 
     const nextSum =
-      previousSum + statistics.hpStats.sum;
+      previousSum +
+      statistics.hpStats.sum;
 
     const nextCount =
-      previousCount + statistics.hpStats.count;
+      previousCount +
+      statistics.hpStats.count;
 
     const nextAvg =
       nextCount > 0
@@ -192,7 +356,9 @@ export class MongoStatisticsRepository
           },
 
           $set: {
-            "hpStats.avg": nextAvg,
+            "hpStats.avg":
+              nextAvg,
+
             lastUpdated:
               statistics.lastUpdated
           }

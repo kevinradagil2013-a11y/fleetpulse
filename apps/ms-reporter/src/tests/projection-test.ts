@@ -6,6 +6,7 @@ const events: VehicleGeneratedEvent[] = [
     at: "Vehicle",
     et: "Generated",
     aid: "projection-test-001",
+    timestamp: "2026-10-06T14:00:00.000Z",
     data: {
       type: "SUV",
       powerSource: "Electric",
@@ -18,6 +19,7 @@ const events: VehicleGeneratedEvent[] = [
     at: "Vehicle",
     et: "Generated",
     aid: "projection-test-002",
+    timestamp: "2026-10-06T14:00:01.000Z",
     data: {
       type: "SUV",
       powerSource: "Gasoline",
@@ -30,6 +32,7 @@ const events: VehicleGeneratedEvent[] = [
     at: "Vehicle",
     et: "Generated",
     aid: "projection-test-003",
+    timestamp: "2026-10-06T14:00:02.000Z",
     data: {
       type: "PickUp",
       powerSource: "Diesel",
@@ -45,5 +48,3 @@ const result = projectBatch(events);
 console.log(
   JSON.stringify(result, null, 2)
 );
-
-

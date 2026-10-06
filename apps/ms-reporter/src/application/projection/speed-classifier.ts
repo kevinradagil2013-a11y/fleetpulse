@@ -3,19 +3,11 @@
 export function classifySpeed(
   topSpeed: number
 ): SpeedClass {
-  /*
-   * La consigna recuperada no especifica todavía
-   * los límites exactos de velocidad.
-   *
-   * Mantener esta regla aislada permite cambiar
-   * únicamente este punto cuando tengamos la
-   * definición oficial.
-   */
-  if (topSpeed <= 150) {
+  if (topSpeed <= 120) {
     return "Lento";
   }
 
-  if (topSpeed <= 250) {
+  if (topSpeed <= 200) {
     return "Normal";
   }
 

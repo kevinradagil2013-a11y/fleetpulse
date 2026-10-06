@@ -9,6 +9,10 @@ import { List } from "react-window";
 
 import { fetchFleetStatistics } from "./api/graphql.js";
 import {
+  fetchGeneratorStatus,
+  fetchGeneratedVehicles
+} from "./api/generator.js";
+import {
   connectFleetStatisticsWebSocket
 } from "./api/websocket.js";
 import type { FleetStatistics } from "./types.js";
@@ -99,6 +103,20 @@ function App() {
   const [error, setError] =
     useState<string | null>(null);
 
+  const [generatorStatus, setGeneratorStatus] =
+    useState<"RUNNING" | "STOPPED">("STOPPED");
+
+  const [generatedCount, setGeneratedCount] =
+    useState(0);
+
+  const [generatedVehicles, setGeneratedVehicles] =
+    useState<
+      import("./api/generator.js").GeneratedVehicle[]
+    >([]);
+
+  const [generatorError, setGeneratorError] =
+    useState<string | null>(null);
+
   /*
    * Estado recibido por WebSocket.
    *
@@ -150,6 +168,85 @@ function App() {
       active = false;
     };
   }, []);
+
+  /*
+   * Estado en tiempo real de ms-generator.
+   */
+  useEffect(() => {
+    let active = true;
+
+    async function loadGeneratorStatus() {
+      try {
+        const status =
+          await fetchGeneratorStatus();
+
+        if (!active) {
+          return;
+        }
+
+        setGeneratorStatus(status.status);
+        setGeneratedCount(status.generatedCount);
+        setGeneratorError(null);
+      } catch (err) {
+        if (active) {
+          setGeneratorError(
+            err instanceof Error
+              ? err.message
+              : "No fue posible conectar con ms-generator"
+          );
+        }
+      }
+    }
+
+    async function loadGeneratedVehicles() {
+      try {
+        const result =
+          await fetchGeneratedVehicles();
+
+        if (!active) {
+          return;
+        }
+
+        setGeneratedVehicles(result.vehicles);
+      } catch (err) {
+        if (active) {
+          setGeneratorError(
+            err instanceof Error
+              ? err.message
+              : "No fue posible cargar los vehículos"
+          );
+        }
+      }
+    }
+
+    void loadGeneratorStatus();
+    void loadGeneratedVehicles();
+
+    const statusInterval =
+      window.setInterval(
+        () => void loadGeneratorStatus(),
+        500
+      );
+
+    const vehiclesInterval =
+      window.setInterval(
+        () => void loadGeneratedVehicles(),
+        1000
+      );
+
+    return () => {
+      active = false;
+
+      window.clearInterval(
+        statusInterval
+      );
+
+      window.clearInterval(
+        vehiclesInterval
+      );
+    };
+  }, []);
+
 
   /*
    * WebSocket permanece conectado incluso durante
@@ -824,6 +921,100 @@ function App() {
 
       </section>
 
+      <section className="generator-panel">
+
+        <div className="generator-panel-header">
+
+          <div>
+            <p className="eyebrow">MS-GENERATOR</p>
+            <h2>Eventos generados</h2>
+            <small>Simulador de vehículos en tiempo real</small>
+          </div>
+
+          <div className="generator-live-status">
+            <span
+              className={`generator-status-dot ${
+                generatorStatus === "RUNNING"
+                  ? "running"
+                  : "stopped"
+              }`}
+            />
+            <strong>{generatorStatus}</strong>
+          </div>
+
+        </div>
+
+        <div className="generator-control-row">
+
+          <div className="generator-counter">
+            <span>EVENTOS GENERADOS</span>
+            <strong>{generatedCount.toLocaleString()}</strong>
+            <small>VehicleGenerated</small>
+          </div>
+
+          <div className="generator-actions">
+            <button
+              className="generator-button start"
+              onClick={async () => {
+                try {
+                  await fetch(
+                    "http://localhost:4010/start",
+                    { method: "POST" }
+                  );
+                  const status =
+                    await fetchGeneratorStatus();
+                  setGeneratorStatus(status.status);
+                  setGeneratedCount(status.generatedCount);
+                  setGeneratorError(null);
+                } catch (err) {
+                  setGeneratorError(
+                    err instanceof Error
+                      ? err.message
+                      : "No fue posible iniciar el generador"
+                  );
+                }
+              }}
+            >
+              ▶ INICIAR
+            </button>
+
+            <button
+              className="generator-button stop"
+              onClick={async () => {
+                try {
+                  await fetch(
+                    "http://localhost:4010/stop",
+                    { method: "POST" }
+                  );
+                  const status =
+                    await fetchGeneratorStatus();
+                  setGeneratorStatus(status.status);
+                  setGeneratedCount(status.generatedCount);
+                  setGeneratorError(null);
+                } catch (err) {
+                  setGeneratorError(
+                    err instanceof Error
+                      ? err.message
+                      : "No fue posible detener el generador"
+                  );
+                }
+              }}
+            >
+              ■ DETENER
+            </button>
+          </div>
+
+        </div>
+
+        {generatorError && (
+          <div className="generator-error">
+            {generatorError}
+          </div>
+        )}
+
+      </section>
+
+
       <section className="data-grid">
 
         <article className="data-card">
@@ -888,6 +1079,52 @@ function App() {
 
       </section>
 
+
+      <section className="generator-stream">
+
+        <div className="stream-header">
+          <div>
+            <p className="eyebrow">EVENT STREAM</p>
+            <h2>Vehículos recientes</h2>
+          </div>
+          <span className="stream-count">
+            {generatedVehicles.length} registros
+          </span>
+        </div>
+
+        <div className="stream-table">
+
+          <div className="stream-row stream-row-header">
+            <span>HORA</span>
+            <span>TIPO</span>
+            <span>ENERGÍA</span>
+            <span>HP</span>
+            <span>AÑO</span>
+            <span>VELOCIDAD</span>
+          </div>
+
+          {generatedVehicles.slice(0, 12).map((vehicle) => (
+            <div
+              className="stream-row"
+              key={vehicle.aid}
+            >
+              <span>
+                {new Date(
+                  vehicle.timestamp
+                ).toLocaleTimeString()}
+              </span>
+              <span>{vehicle.data.type}</span>
+              <span>{vehicle.data.powerSource}</span>
+              <span>{vehicle.data.hp}</span>
+              <span>{vehicle.data.year}</span>
+              <span>{vehicle.data.topSpeed} km/h</span>
+            </div>
+          ))}
+
+        </div>
+
+      </section>
+
       <footer className="dashboard-footer">
 
         <span>
@@ -908,6 +1145,11 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
 
 
 

@@ -11,6 +11,7 @@ const event: VehicleGeneratedEvent = {
   at: "Vehicle",
   et: "Generated",
   aid: "fleetpulse-idempotency-test-001",
+  timestamp: "2026-10-06T14:00:00.000Z",
   data: {
     type: "SUV",
     powerSource: "Electric",

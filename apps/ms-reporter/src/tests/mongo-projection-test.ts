@@ -18,6 +18,7 @@ const secondBatch: VehicleGeneratedEvent[] = [
     at: "Vehicle",
     et: "Generated",
     aid: "mongo-projection-test-004",
+    timestamp: "2026-10-06T14:00:03.000Z",
     data: {
       type: "Sedan",
       powerSource: "Hybrid",

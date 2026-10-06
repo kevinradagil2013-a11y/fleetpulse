@@ -10,5 +10,6 @@ export interface VehicleGeneratedEvent {
   at: "Vehicle";
   et: "Generated";
   aid: string;
+  timestamp: string;
   data: VehicleGeneratedData;
 }

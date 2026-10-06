@@ -23,6 +23,7 @@ export function createVehicleGeneratedEvent(
     at: "Vehicle",
     et: "Generated",
     aid,
+    timestamp: new Date().toISOString(),
     data
   };
 }

@@ -46,22 +46,34 @@ const webSocketServer =
     )
   });
 
-// Servidor HTTP para observabilidad y Prometheus
-const metricsPort = Number(process.env.METRICS_PORT ?? 9090);
-const metricsServer = http.createServer(async (req, res) => {
-  if (req.url === "/metrics" && req.method === "GET") {
-    try {
-      res.setHeader("Content-Type", FleetMetrics.registry.contentType);
-      res.end(await FleetMetrics.registry.metrics());
-    } catch (err) {
-      res.statusCode = 500;
-      res.end("Internal Server Error");
+const metricsPort =
+  Number(process.env.METRICS_PORT ?? 9090);
+
+const metricsServer =
+  http.createServer(async (req, res) => {
+
+    if (
+      req.url === "/metrics" &&
+      req.method === "GET"
+    ) {
+      try {
+        res.setHeader(
+          "Content-Type",
+          FleetMetrics.registry.contentType
+        );
+
+        res.end(
+          await FleetMetrics.registry.metrics()
+        );
+      } catch (err) {
+        res.statusCode = 500;
+        res.end("Internal Server Error");
+      }
+    } else {
+      res.statusCode = 404;
+      res.end("Not Found");
     }
-  } else {
-    res.statusCode = 404;
-    res.end("Not Found");
-  }
-});
+  });
 
 const processor =
   createEventBatchProcessor(
@@ -134,9 +146,14 @@ async function start(): Promise<void> {
 
   await statisticsRepository.connect();
 
-  metricsServer.listen(metricsPort, () => {
-    console.log(`[ms-reporter] metrics server running on http://localhost:${metricsPort}/metrics`);
-  });
+  metricsServer.listen(
+    metricsPort,
+    () => {
+      console.log(
+        `[ms-reporter] metrics server running on http://localhost:${metricsPort}/metrics`
+      );
+    }
+  );
 
   subscription =
     processor.start(
@@ -204,3 +221,4 @@ void start().catch(
     process.exitCode = 1;
   }
 );
+
